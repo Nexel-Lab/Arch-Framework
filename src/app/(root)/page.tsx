@@ -64,8 +64,13 @@ const Page = () => {
                 Unleash Limitless Scalability and Type-Safe Mastery: Harness the
                 Power of{' '}
               </p>
-              {technologies.map((value) => (
-                <Button {...value} key={value.title} separator=',' />
+              {technologies.map((value, index) => (
+                <Button
+                  {...value}
+                  key={value.title}
+                  separator=','
+                  index={index}
+                />
               ))}
               <p>in Your Elite Full-Stack Framework.</p>
             </div>
@@ -119,14 +124,17 @@ const Page = () => {
 const Button = ({
   title,
   link,
+  index,
   separator,
 }: {
   title: string
   link: string
+  index?: number
   separator?: string
 }) => {
   return (
     <>
+      {index && index !== 0 && separator}
       <Link
         href={link}
         target='_blank'
@@ -136,7 +144,6 @@ const Button = ({
           {title}
         </button>
       </Link>
-      {separator}
     </>
   )
 }
@@ -150,7 +157,7 @@ const Logo = () => (
 
 const Footer = () => {
   return (
-    <footer className='fixed bottom-0 left-0 z-20 flex w-dvw justify-center bg-gradient-to-t from-white to-white/0 dark:from-[#131313] dark:to-[#131313/0 md:bg-none'>
+    <footer className='dark:to-[#131313/0 fixed bottom-0 left-0 z-20 flex w-dvw justify-center bg-gradient-to-t from-white to-white/0 dark:from-[#131313] md:bg-none'>
       <div className='lg:px:0 z-50 flex h-20 w-full flex-col items-center justify-end pb-2 text-xs md:h-auto md:max-w-5xl md:flex-row md:justify-between md:px-8 md:text-base lg:px-0'>
         <p>
           <span className='opacity-40'>Developed by</span>{' '}
