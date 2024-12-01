@@ -29,21 +29,21 @@ optionals
 
 <h2 id="note">Note!</h2>
 
-- S3 was turned off by default for preventing errors while creating s3 client without env variables. You can turn on by going to `packages/arch/libs/s3/index.ts` and remove the 2 line comments (`export`)
+- S3 was turned off by default for preventing errors while creating s3 client without env variables. You can turn on by removing comment in tRPC context `backend/trpc/trpc.context.ts` and caller `backend/trpc/trpc.caller.ts`
 - Front-end pages are in `src/app`. `global` is for store, env, and config. All Back-end is at `backend` folder.
 
 <h2 id="note">Get start</h2>
 
-- Git clone this repo
+- Git clone this repo with `git clone --recurse-submodules --remote-submodules https://github.com/Nexel-Lab/Arch-Framework`
 - Rename `.env-example` to `.env`
 - Add required env `MONGODB_URI` (other env variables are optionals)
-- Run `pnpm install` or `yarn install`
-- Run `pnpm pre:db` or `yarn yarn:pre:db`
+- Run `pnpm install` and `pnpm pre:db`
+- **Or** `yarn install` and `yarn yarn:pre:db`
 - Download VScode extension `Todo Tree` for easier to find what you need to update before deploying your app
-- Start dev server with `pnpm dev` or `yarn dev` (running on http://localhost:8080)
-- Deploy production with `pnpm deploy` or `yarn yarn:deploy`
+- Start dev server with `dev` command (running on http://localhost:8080)
+- Deploy production with `pnpm deploy` or `yarn yarn:deploy` command
 
-<h2 id="note">What's next?/h2>
+<h2 id="note">What's next?</h2>
 
 - 1.1 - Update app name in `global/config/app.ts`
 - 1.2 - Update app SEO in `global/config/meta/data.ts`
