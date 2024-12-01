@@ -1,0 +1,69 @@
+# IceJi -- Universal Git Ignore
+
+# dependencies
+/node_modules
+/*/node_modules
+/*/*/node_modules
+
+/.pnp
+.pnp.js
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+yarn
+
+# testing
+/coverage
+/.env
+.env
+.env.local
+.env.test
+.env.development
+.env.dev
+.env.production
+.env.prod
+
+# next.js
+/.next/
+/out/
+/apps/*/.next/
+/apps/*/out/
+
+# nest.js
+/dist/
+/servers/dist/
+/servers/*/dist/
+
+# packages
+/packages/*/dist/
+
+# Generated
+public/fallback-*.js
+public/swe-*
+public/sw*
+public/workbox-*
+ronots.txt
+
+# misc
+.DS_Store
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Sentry
+.sentryclirc
+/*/*/.sentryclirc
+
+# Vercel
+.vercel
