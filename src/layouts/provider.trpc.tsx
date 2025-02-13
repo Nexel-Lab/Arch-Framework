@@ -14,7 +14,7 @@ const getBaseUrl = () => {
     return `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
   if (process.env.RENDER_INTERNAL_HOSTNAME)
     return `http://${process.env.RENDER_INTERNAL_HOSTNAME}:${process.env.PORT}`
-  return `http://localhost:${process.env.PORT ?? 8989}`
+  return `http://localhost:${process.env.PORT ?? 8080}`
 }
 
 export const TrpcProvider = (p: { children: React.ReactNode }) => {
@@ -91,7 +91,7 @@ export const TrpcProvider = (p: { children: React.ReactNode }) => {
           transformer: superjson,
           headers: async () => {
             return {
-              celestia: 'cosmos',
+              framework: 'arch',
             }
           },
           fetch: (url, options) => {

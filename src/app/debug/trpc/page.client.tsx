@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { trpc } from '@trpc'
 
-function Client(p: { session: Session | null }): JSX.Element {
+function Client(p: { session: Session | null }) {
   const clientQuery = trpc.debugger.testQuery.useQuery({ text: 'COSMOS' })
   const clientMutation = trpc.debugger.testMutation.useMutation({
     onSuccess: (data) => {
@@ -47,7 +47,7 @@ function Client(p: { session: Session | null }): JSX.Element {
   return (
     <>
       <h6 className='mb-2 text-xl'>Client:</h6>
-      <div className='w-full space-y-1 rounded-md bg-foreground/5 p-4 text-center'>
+      <div className='bg-foreground/5 w-full space-y-1 rounded-md p-4 text-center'>
         <p>
           {clientQuery.isLoading
             ? 'Loading..'
@@ -60,13 +60,13 @@ function Client(p: { session: Session | null }): JSX.Element {
             type='text'
             name='text'
             placeholder='Test mutation'
-            className='rounded-md bg-foreground/5 px-2 py-1 text-center'
+            className='bg-foreground/5 rounded-md px-2 py-1 text-center'
           />
         </form>
         {secretMessage ? <p>{secretMessage}</p> : <p>No session</p>}
       </div>
-      <h6 className='mb-2 mt-6 text-xl'>Server:</h6>
-      <div className='w-full space-y-1 rounded-md bg-foreground/5 p-4 text-center'>
+      <h6 className='mt-6 mb-2 text-xl'>Server:</h6>
+      <div className='bg-foreground/5 w-full space-y-1 rounded-md p-4 text-center'>
         <p>{trpcServerData ? trpcServerData : 'Loading..'}</p>
       </div>
     </>

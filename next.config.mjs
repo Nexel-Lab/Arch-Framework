@@ -9,9 +9,9 @@ await import('./global/env.mjs')
  * @constraint {{import('next').NextConfig}}
  */
 import 'dotenv/config'
-import { fileURLToPath } from 'url'
-import path, { dirname } from 'path'
-import { createRequire } from 'node:module'
+// import { fileURLToPath } from 'url'
+// import path, { dirname } from 'path'
+// import { createRequire } from 'node:module'
 import plugins from 'next-compose-plugins'
 import withPWAInit from '@ducanh2912/next-pwa'
 // import { withSentryConfig } from '@sentry/nextjs'
@@ -33,9 +33,9 @@ const withPWA = withPWAInit({
   register: true,
 })
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-const require = createRequire(import.meta.url)
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = dirname(__filename)
+// const require = createRequire(import.meta.url)
 
 const appExportList = ['standalone', 'export']
 const appExport = process.env.EXPORT !== undefined &&
@@ -44,60 +44,39 @@ const appExport = process.env.EXPORT !== undefined &&
   }
 
 const nextConfig = {
-  webpack: (config, { webpack, /*dev ,*/ isServer }) => {
-    config.plugins.push(
-      new webpack.ProvidePlugin({
-        React: 'react',
-      }),
-    )
-
-    // config.resolve.alias['@aurora'] = path.join(__dirname, 'aurora')
-    // config.resolve.alias['@app'] = path.join(__dirname, 'app')
-    // config.resolve.alias['@global'] = path.join(__dirname, 'global')
-    // config.resolve.alias['@components'] = path.join(__dirname, 'app/components')
-    // config.resolve.alias['@contents'] = path.join(__dirname, 'app/contents')
-    // config.resolve.alias['@server'] = path.join(__dirname, 'server')
-    // config.resolve.alias['public'] = path.join(__dirname, 'public')
-    // config.resolve.alias['auroraGL'] = path.resolve(
-    //   __dirname,
-    //   'aurora/libs/webGL/glsl',
-    // )
-
-    config.module.rules.push({
-      test: /\.(ogg|mp3|wav|mpe?g)$/i,
-      exclude: config.exclude,
-      use: [
-        {
-          loader: require.resolve('url-loader'),
-          options: {
-            limit: config.inlineImageLimit,
-            fallback: require.resolve('file-loader'),
-            publicPath: `${config.assetPrefix}/_next/static/images/`,
-            outputPath: `${isServer ? '../' : ''}static/images/`,
-            name: '[name]-[hash].[ext]',
-            esModule: config.esModule || false,
-          },
-        },
+  webpack: (config, { webpack, isServer }) => {
+    return {
+      ...config,
+      cache: { type: 'filesystem' },
+      plugins: [
+        ...config.plugins,
+        new webpack.ProvidePlugin({
+          React: 'react',
+        }),
       ],
-    })
-
-    config.module.rules.push({
-      test: /\.mp4$/,
-      use: ['file-loader'],
-    })
-
-    config.module.rules.push({
-      test: /\.(glsl|vs|fs|vert|frag|ps)$/,
-      exclude: /node_modules/,
-      use: ['glslify-import-loader', 'raw-loader', 'glslify-loader'],
-    })
-    config.module.rules.push({
-      test: /\.hlsl$/i,
-      exclude: /node_modules/,
-      use: ['@gdgt/hlsl-loader'],
-    })
-
-    return config
+      module: {
+        ...config.module,
+        rules: [
+          ...config.module.rules,
+          {
+            test: /\.(ogg|mp3|wav|mpe?g)$/i,
+            type: 'asset/resource',
+            generator: {
+              filename: 'static/media/[name]-[hash][ext]',
+            },
+          },
+          {
+            test: /\.mp4$/,
+            type: 'asset/resource',
+          },
+          {
+            test: /\.(glsl|vs|fs|vert|frag|ps)$/,
+            exclude: /node_modules/,
+            use: ['glslify-import-loader', 'raw-loader', 'glslify-loader'],
+          },
+        ],
+      },
+    }
   },
   async headers() {
     return [
@@ -119,14 +98,19 @@ const nextConfig = {
       },
     ]
   },
+  reactStrictMode: true,
+  swcMinify: true,
+  optimizeFonts: true,
   typescript: {
     ignoreBuildErrors: true,
   },
   compiler: {
     styledComponents: true,
   },
+  compress: true,
   images: {
     formats: ['image/avif', 'image/webp'],
+    dangerouslyAllowSVG: true,
     remotePatterns: [
       {
         protocol: 'https',

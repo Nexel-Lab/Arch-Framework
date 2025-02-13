@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import {
-  email as emailValidator,
-  password as passwordValidator,
+  validateEmail,
+  validatePassword
 } from '@arch/core/utils/validator'
 import { formHandler } from '../functions'
 import { trpc } from '@backend/trpc/client'
@@ -49,7 +49,7 @@ const SignUpEmail = () => {
       async (f: { email: string; password: string }, t: typeof toast) => {
         setIsLoading(true)
         try {
-          if (emailValidator(f.email) === null) {
+          if (!validateEmail(f.email).isValid) {
             t.warn('Please enter a valid E-mail')
             setIsLoading(false)
             return
@@ -61,10 +61,10 @@ const SignUpEmail = () => {
             return
           }
 
-          const IsValidPassword = passwordValidator.Func(f.password)
+          const passwordValidated = validatePassword(f.password)
 
-          if (IsValidPassword.error) {
-            t.warn(IsValidPassword.msg)
+          if (!passwordValidated.isValid) {
+            t.warn(passwordValidated.error)
             setIsLoading(false)
             return
           }
