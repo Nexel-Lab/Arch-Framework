@@ -2,8 +2,8 @@
 
 export const app = {
   NAME: 'Arch Framework',
-  VERSION: '2025.02.1301',
-  UPDATE_DATE: 'Feb 13, 2025',
+  VERSION: '2025.03.2201',
+  UPDATE_DATE: 'Mar 22, 2025',
   SENTRY: {
     dsn: process.env.NEXT_PUBLIC_SENTRY_DSN ?? '',
   },
