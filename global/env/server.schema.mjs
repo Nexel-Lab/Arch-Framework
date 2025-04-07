@@ -14,12 +14,23 @@ export const serverSchema = {
     // Since NextAuth.js automatically uses the VERCEL_URL if present.
     (str) => process.env.VERCEL_URL ?? str,
     // VERCEL_URL doesn't include `https` so it cant be validated as a URL
-    process.env.VERCEL ? z.string().min(1) : z.string().url(),
+    process.env.VERCEL ? z.string().min(1) : z.string().url()
+  ),
+  BASE_URL: z.preprocess(
+    () => {
+      if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`
+      if (process.env.RAILWAY_PUBLIC_DOMAIN)
+        return `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
+      if (process.env.RENDER_INTERNAL_HOSTNAME)
+        return `http://${process.env.RENDER_INTERNAL_HOSTNAME}:${process.env.PORT}`
+      return `http://localhost:${process.env.PORT ?? 8080}`
+    },
+    z.string().url() // Ensure it's a valid URL
   ),
   // DATABASE
   MONGODB_URI: z.string().url(),
-  ACCELERATE_URI: z.string().url(),
-  // API
+  // AUTH
+  AUTH_SECRET: z.string(),
   AUTH_FB_APP_ID: z.string(),
   AUTH_FB_APP_SECRET: z.string(),
   AUTH_GITHUB_CLIENT_ID: z.string(),
@@ -40,10 +51,10 @@ export const serverSchema = {
   S3_UPLOAD_BUCKET: z.string(),
   // EMAIL
   EMAIL_HOST: z.string(),
-  EMAIL_PORT: z.preprocess((x) => parseInt(String(x)), z.number()),
+  EMAIL_PORT: z.preprocess((x) => Number.parseInt(String(x)), z.number()),
   EMAIL_SECURE: z.preprocess(
     (val) => val === true || val === 'true',
-    z.boolean(),
+    z.boolean()
   ),
   EMAIL_USER: z.string(),
   EMAIL_PASS: z.string(),
@@ -52,7 +63,7 @@ export const serverSchema = {
   STRIPE_SECRET_KEY: z.string(),
   STRIPE_WEBHOOK_SECRET: z.string(),
   STRIPE_DONATE_ID: z.string(),
-  STRIPE_METADATA_KEY: z.string(),
+  STRIPE_METADATA_KEY: z.string()
   // FIREBASE
   // FIREBASE_API_KEY: z.string().min(1),
   // FIREBASE_AUTH_DOMAIN: z.string().min(1),

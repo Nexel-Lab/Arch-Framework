@@ -10,8 +10,8 @@ export const runtimeEnv = {
   NEXTAUTH_URL: process.env.NEXTAUTH_URL,
   // DATABASE
   MONGODB_URI: process.env.MONGODB_URI,
-  ACCELERATE_URI: process.env.ACCELERATE_URI,
-  // API
+  // AUTH
+  AUTH_SECRET: process.env.AUTH_SECRET,
   AUTH_FB_APP_ID: process.env.AUTH_FB_APP_ID,
   AUTH_FB_APP_SECRET: process.env.AUTH_FB_APP_SECRET,
   AUTH_GITHUB_CLIENT_ID: process.env.AUTH_GITHUB_CLIENT_ID,

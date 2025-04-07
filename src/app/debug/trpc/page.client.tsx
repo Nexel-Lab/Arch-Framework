@@ -9,8 +9,8 @@ function Client(p: { session: Session | null }) {
   const clientQuery = trpc.debugger.testQuery.useQuery({ text: 'COSMOS' })
   const clientMutation = trpc.debugger.testMutation.useMutation({
     onSuccess: (data) => {
-      if (data && data.success && data.message) {
-        toast.success('Success: ' + data.message)
+      if (data?.success && data.message) {
+        toast.success(`Success: ${data.message}`)
         return
       }
       toast.warn('No data recieved')
@@ -32,7 +32,7 @@ function Client(p: { session: Session | null }) {
           console.log({ res })
           setTrpcServerData('Server caller is working')
         })
-        .catch((err) => setTrpcServerData('Failed to fetch api'))
+        .catch((_e) => setTrpcServerData('Failed to fetch api'))
     }
     if (!trpcServerData) {
       testTrpcServer()
@@ -47,7 +47,7 @@ function Client(p: { session: Session | null }) {
   return (
     <>
       <h6 className='mb-2 text-xl'>Client:</h6>
-      <div className='bg-foreground/5 w-full space-y-1 rounded-md p-4 text-center'>
+      <div className='w-full space-y-1 rounded-md bg-foreground/5 p-4 text-center'>
         <p>
           {clientQuery.isLoading
             ? 'Loading..'
@@ -60,13 +60,13 @@ function Client(p: { session: Session | null }) {
             type='text'
             name='text'
             placeholder='Test mutation'
-            className='bg-foreground/5 rounded-md px-2 py-1 text-center'
+            className='rounded-md bg-foreground/5 px-2 py-1 text-center'
           />
         </form>
         {secretMessage ? <p>{secretMessage}</p> : <p>No session</p>}
       </div>
       <h6 className='mt-6 mb-2 text-xl'>Server:</h6>
-      <div className='bg-foreground/5 w-full space-y-1 rounded-md p-4 text-center'>
+      <div className='w-full space-y-1 rounded-md bg-foreground/5 p-4 text-center'>
         <p>{trpcServerData ? trpcServerData : 'Loading..'}</p>
       </div>
     </>

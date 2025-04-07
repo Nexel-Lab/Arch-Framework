@@ -89,7 +89,7 @@ export const TrpcProvider = (p: { children: React.ReactNode }) => {
         httpBatchLink({
           url: `${getBaseUrl()}/api/trpc/`,
           transformer: superjson,
-          headers: async () => {
+          headers: () => {
             return {
               framework: 'arch',
             }
