@@ -13,5 +13,5 @@ export const clientSchema = {
     if (process.env.RENDER_INTERNAL_HOSTNAME)
       return `http://${process.env.RENDER_INTERNAL_HOSTNAME}:${process.env.PORT}`
     return `http://localhost:${process.env.PORT ?? 8080}`
-  }, z.string().url())
+  }, z.string().url()),
 }

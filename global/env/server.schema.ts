@@ -4,7 +4,6 @@ import { z } from 'zod'
 
 export const serverSchema = {
   // ** ENVIRONMENT
-  NODE_ENV: z.enum(['development', 'test', 'production']),
   NEXTAUTH_SECRET:
     process.env.NODE_ENV === 'production'
       ? z.string().min(1)
@@ -14,7 +13,7 @@ export const serverSchema = {
     // Since NextAuth.js automatically uses the VERCEL_URL if present.
     (str) => process.env.VERCEL_URL ?? str,
     // VERCEL_URL doesn't include `https` so it cant be validated as a URL
-    process.env.VERCEL ? z.string().min(1) : z.string().url()
+    process.env.VERCEL ? z.string().min(1) : z.string().url(),
   ),
   BASE_URL: z.preprocess(
     () => {
@@ -25,7 +24,9 @@ export const serverSchema = {
         return `http://${process.env.RENDER_INTERNAL_HOSTNAME}:${process.env.PORT}`
       return `http://localhost:${process.env.PORT ?? 8080}`
     },
-    z.string().url() // Ensure it's a valid URL
+    z
+      .string()
+      .url(), // Ensure it's a valid URL
   ),
   // DATABASE
   MONGODB_URI: z.string().url(),
@@ -54,16 +55,16 @@ export const serverSchema = {
   EMAIL_PORT: z.preprocess((x) => Number.parseInt(String(x)), z.number()),
   EMAIL_SECURE: z.preprocess(
     (val) => val === true || val === 'true',
-    z.boolean()
+    z.boolean(),
   ),
   EMAIL_USER: z.string(),
   EMAIL_PASS: z.string(),
   EMAIL_FROM: z.string(),
   // PAYMENT
-  STRIPE_SECRET_KEY: z.string(),
-  STRIPE_WEBHOOK_SECRET: z.string(),
-  STRIPE_DONATE_ID: z.string(),
-  STRIPE_METADATA_KEY: z.string()
+  // STRIPE_SECRET_KEY: z.string(),
+  // STRIPE_WEBHOOK_SECRET: z.string(),
+  // STRIPE_DONATE_ID: z.string(),
+  // STRIPE_METADATA_KEY: z.string(),
   // FIREBASE
   // FIREBASE_API_KEY: z.string().min(1),
   // FIREBASE_AUTH_DOMAIN: z.string().min(1),

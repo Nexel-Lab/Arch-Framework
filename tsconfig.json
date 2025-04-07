@@ -33,7 +33,7 @@
       "@config/*": ["global/config/*"],
       "@constants": ["global/constants"],
       "@database": ["backend/database"],
-      "@env": ["global/env.mjs"],
+      "@env": ["global/env"],
       "@trpc": ["backend/trpc/client"],
       "public/*": ["public/*"],
       "types": ["types"],
