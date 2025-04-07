@@ -40,6 +40,7 @@
     "@aws-sdk/s3-request-presigner": "^3.772.0",
     "@bprogress/next": "^3.2.10",
     "@ducanh2912/next-pwa": "^10.2.9",
+    "@json2csv/plainjs": "^7.0.6",
     "@next/third-parties": "^15.2.3",
     "@prisma/client": "^6.5.0",
     "@radix-ui/react-avatar": "^1.1.3",
