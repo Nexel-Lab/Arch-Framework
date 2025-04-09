@@ -1,12 +1,14 @@
 import { Toast } from '@arch/core/view/toast'
-import { CreateProgress } from '@arch/core/view/nprogress'
+import { Progress } from '@arch/core/view/bprogress'
 import { theme } from '@config'
 // import { Modal } from './modal'
 
 export const GlobalComponent = () => {
   return (
     <>
-      <CreateProgress color={theme.color.primary} />
+      <Progress
+        color={{ light: theme.color.primary, dark: theme.color.primary }}
+      />
       <Toast />
       {/* <Modal /> */}
     </>
