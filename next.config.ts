@@ -1,18 +1,11 @@
 // @ts-check
-await import('./global/env.mjs')
-/**
- * Don't be scared of the generics here.
- * All they do is to give us autocompletion when using this.
- *
- * @template {import('next').NextConfig} T
- * @param {T} config - A generic parameter that flows through to the return type
- * @constraint {{import('next').NextConfig}}
- */
+import './global/env'
+import type { NextConfig } from 'next'
 import 'dotenv/config'
 // import { fileURLToPath } from 'url'
 // import path, { dirname } from 'path'
 // import { createRequire } from 'node:module'
-import plugins from 'next-compose-plugins'
+import withPlugins from '@theiceji/compose-plugins'
 import withPWAInit from '@ducanh2912/next-pwa'
 // import { withSentryConfig } from '@sentry/nextjs'
 import bundleAnalyzer from '@next/bundle-analyzer'
@@ -43,8 +36,8 @@ const appExport = process.env.EXPORT !== undefined &&
     output: process.env.EXPORT.toLowerCase(),
   }
 
-const nextConfig = {
-  webpack: (config, { webpack, isServer }) => {
+const nextConfig: NextConfig = {
+  webpack: (config, { webpack }) => {
     return {
       ...config,
       cache: { type: 'filesystem' },
@@ -78,7 +71,8 @@ const nextConfig = {
       },
     }
   },
-  async headers() {
+  // biome-ignore lint/suspicious/useAwait: NextJs type
+  headers: async () => {
     return [
       {
         source: '/api/public/:path*',
@@ -98,18 +92,15 @@ const nextConfig = {
       },
     ]
   },
-  reactStrictMode: true,
-  swcMinify: true,
-  optimizeFonts: true,
   typescript: {
     ignoreBuildErrors: true,
   },
   compiler: {
     styledComponents: true,
   },
-  compress: true,
   images: {
-    formats: ['image/avif', 'image/webp'],
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 60 * 60 * 24 * 7, // 7 days
     dangerouslyAllowSVG: true,
     remotePatterns: [
       {
@@ -122,31 +113,40 @@ const nextConfig = {
       },
     ],
   },
-  eslint: {
-    ignoreDuringBuilds: true,
+  poweredByHeader: false, // Hides "X-Powered-By: Next.js" for security
+  generateEtags: true, // Enables ETags for caching
+  compress: true, // Enables gzip/ Brotli compression
+  productionBrowserSourceMaps: true, // Enables source maps for Sentry
+  experimental: {
+    staleTimes: {
+      dynamic: 180,
+      static: 600,
+    },
+    serverActions: {
+      // TODO: 1.0 - Update app url for server action
+      allowedOrigins: ['nexellab.com', '*.nexellab.com'],
+      bodySizeLimit: '10mb',
+    },
+    typedRoutes: true,
+    webVitalsAttribution: ['CLS', 'LCP'],
+    swcTraceProfiling: true,
+    // workerThreads: true, // Disabled due to issues with next build in NextJs 15
+    // optimizeCss: true, // Disabled due to issues with next build
   },
-  ...appExport,
-  sentry: {
-    widenClientFileUpload: true,
-    transpileClientSDK: true,
-    tunnelRoute: '/monitoring',
-    hideSourceMaps: true,
-    disableLogger: true,
-    automaticVercelMonitors: true,
-  },
+  ...(appExport as NextConfig),
 }
 
-const sentryWebpackPluginOptions = {
-  silent: true,
-  org: 'org_name',
-  project: 'project_name',
-}
+// const sentryWebpackPluginOptions = {
+//   silent: true,
+//   org: 'org_name',
+//   project: 'project_name',
+// }
 
 const millionConfig = {
   auto: { rsc: true },
 }
 
-export default plugins(
+export default withPlugins(
   [
     // [withSentryConfig, sentryWebpackPluginOptions],
     withBundleAnalyzer,

@@ -17,12 +17,14 @@ const VideoInline: React.FC<VideoInlineProps> = ({
   videoUrl,
   posterUrl,
   className,
+  // biome-ignore lint/correctness/noUnusedVariables: <explanation>
   noPause = true,
   loop = true,
   muted = true,
   autoPlay = true,
 }) => {
   const $videoRef = useRef<HTMLVideoElement | null>(null)
+
   useEffect(() => {
     if ($videoRef.current) {
       const ref = $videoRef.current
@@ -39,7 +41,7 @@ const VideoInline: React.FC<VideoInlineProps> = ({
         }
       }
     }
-  }, [$videoRef])
+  }, [])
 
   return (
     <>
@@ -56,7 +58,7 @@ const VideoInline: React.FC<VideoInlineProps> = ({
           poster={posterUrl}
         >
           <source src={videoUrl} type='video/mp4' />
-          {posterUrl && <img src={posterUrl} />}
+          {posterUrl && <img src={posterUrl} alt='Video thumbnail' />}
         </video>
       </div>
     </>

@@ -41,7 +41,9 @@ const Layout = async ({ children, app }: AppPropsWithLayout) => {
     >
       <body suppressHydrationWarning={true}>
         <Wrapper>
-          <App session={session} app={app} children={children} />
+          <App session={session} app={app}>
+            {children}
+          </App>
         </Wrapper>
         <GoogleTagManager gtmId={env.NEXT_PUBLIC_GTM} />
       </body>

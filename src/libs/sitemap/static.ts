@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-export const _staticSitemapUrls = [
+import type { ISitemap } from './_header'
+
+export const _staticSitemapUrls: ISitemap[] = [
   {
-    title: 'Home',
     url: '/',
     lastModified: new Date(),
     changeFrequency: 'monthly',

@@ -1,6 +1,7 @@
 'use client'
 
-import { VideoProps, STATUS } from './_header'
+import type { VideoProps } from './_header'
+import { STATUS } from './_header'
 import { useRef, useState, useEffect } from 'react'
 import { FaPlay } from 'react-icons/fa6'
 import { cn } from '@/libs/styles'
@@ -98,7 +99,7 @@ const Vimeo: React.FC<VideoProps> = ({
       )}
     >
       {status === STATUS.LOADING && (
-        <div className='absolute inset-0 left-0 top-0 flex h-full w-full items-center justify-center bg-opacity-40 transition-opacity hover:bg-opacity-50'>
+        <div className='absolute inset-0 top-0 left-0 flex h-full w-full items-center justify-center bg-opacity-40 transition-opacity hover:bg-opacity-50'>
           <Loading />
         </div>
       )}
@@ -106,7 +107,7 @@ const Vimeo: React.FC<VideoProps> = ({
       {(status === STATUS.IDLE || (status === STATUS.PLAY && !isPlaying)) && (
         <button
           onClick={() => setStatus(STATUS.LOADING)}
-          className='absolute inset-0 left-0 top-0 flex h-full w-full items-center justify-center bg-opacity-40 transition-opacity hover:bg-opacity-50'
+          className='absolute inset-0 top-0 left-0 flex h-full w-full items-center justify-center bg-opacity-40 transition-opacity hover:bg-opacity-50'
         >
           <div className='flex h-16 w-16 items-center justify-center rounded-full bg-foreground/20 bg-opacity-80 p-4'>
             <FaPlay className='h-full w-full' />
@@ -116,8 +117,8 @@ const Vimeo: React.FC<VideoProps> = ({
       {status === STATUS.PLAY && (
         <button
           onClick={togglePlay}
-          className='absolute inset-0 left-0 top-0 flex h-full w-full items-center justify-center bg-opacity-40 transition-opacity hover:bg-opacity-50'
-        ></button>
+          className='absolute inset-0 top-0 left-0 flex h-full w-full items-center justify-center bg-opacity-40 transition-opacity hover:bg-opacity-50'
+        />
       )}
     </div>
   )
