@@ -1,15 +1,13 @@
 <p align="center">
-    <picture>
-        <source media="(prefers-color-scheme: dark)" srcset="https://arch.nexellab.com/icon.svg">
-        <img width="140" alt="Logo for A1" src="https://arch.nexellab.com/icon.svg">
-    </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://arch.nexellab.com/icon.svg">
+    <img width="140" alt="Logo for A1" src="https://arch.nexellab.com/icon.svg">
+  </picture>
 </p>
 
-<h1 align="center">
-  Built with <a href="https://arch.nexellab.com">ARCH Framework</a>
-</h1>
+# Built with [ARCH Framework](https://arch.nexellab.com)
 
-<h2 id="overview">Arch Framework</h2>
+## Overview
 
 The _"ARCH FRAMEWORK"_ is a modern web development stack made by [TheIceJi](https://theiceji.com) focused on **modularity**, **scalability**, and **full-stack typesafety**. It consists of:
 
@@ -22,35 +20,104 @@ The _"ARCH FRAMEWORK"_ is a modern web development stack made by [TheIceJi](http
 - [NextAuth.js](https://next-auth.js.org)
 - [AWS-S3](https://aws.amazon.com/s3/)
 
-optionals
+**Optionals:**
 - [Framer Motion](https://www.framer.com/motion/)
 - [Zustand](https://zustand-demo.pmnd.rs/)
 - [Redis](https://redis.io/)
 
-<h2 id="note">Note!</h2>
+---
 
-- S3 was turned off by default for preventing errors while creating s3 client without env variables. You can turn on by removing comment in tRPC context `backend/trpc/trpc.context.ts` and caller `backend/trpc/trpc.caller.ts`
-- Front-end pages are in `src/app`. `global` is for store, env, and config. All Back-end is at `backend` folder.
+## ⚠️ Note!
 
-<h2 id="note">Get start</h2>
+- S3 is turned off by default to avoid errors when creating an S3 client without environment variables. Enable it by uncommenting the relevant lines in `backend/trpc/trpc.context.ts` and `backend/trpc/trpc.caller.ts`.
+- Frontend pages live in `src/app`.
+- The `global` directory contains store, environment config, and general app settings.
+- All backend logic resides in the `backend` folder.
 
-- Git clone this repo with `git clone https://github.com/Nexel-Lab/Arch-Framework`
-- Go to (root) folder `cd <app_name>` or Open app root folder in terminal
-- Git clone core module with `git clone https://github.com/Nexel-Lab/Arch-Core arch/core`
-- Rename `.env-example` to `.env`
-- Add required env `MONGODB_URI` (other env variables are optionals)
-- Run `pnpm install` and `pnpm pre:db`
-- **Or** `yarn install` and `yarn yarn:pre:db`
-- Download VScode extension `Todo Tree` for easier to find what you need to update before deploying your app
-- Start dev server with `dev` command (running on http://localhost:8080)
-- Deploy production with `pnpm deploy` or `yarn yarn:deploy` command
+---
 
-<h2 id="note">What's next?</h2>
+## 📅 Getting Started
 
-- 1.1 - Update app name in `global/config/app.ts`
-- 1.2 - Update app SEO in `global/config/meta/data.ts`
-- 1.3 - Update app contact in `global/config/contacts.ts`
-- 1.4 - Rename based url for sitemap in `src/app/sitemap.ts`
-- 2.1 - Setup global UI controllers in `src/layouts/_controllers/controllers.tsx`
-- Optional 1: Update app environment after adding or removing packages/ modules in `global/env.mjs`
-- Optional 2: add S3 to tRPC context 
+### 📦 Installation
+
+#### Option 1: Download Release
+- Go to the **[Releases](#)** tab and download the latest release.
+- Extract it into your project directory.
+
+#### Option 2: Manual Setup
+- Clone the main repository:
+  ```bash
+  git clone https://github.com/Nexel-Lab/Arch-Framework
+  ```
+- Navigate to the app root folder:
+  ```bash
+  cd <app_name>
+  ```
+- Clone the core module:
+  ```bash
+  git clone https://github.com/Nexel-Lab/Arch-Core arch/core
+  ```
+- Copy the environment template:
+  ```bash
+  mv .env-example .env
+  ```
+
+### ⚙️ Configuration
+
+- Add the required environment variable:
+  ```env
+  MONGODB_URI=<your_mongodb_uri>
+  ```
+  *(Other variables in `.env` are optional)*
+
+### 🚀 Setup & Development
+
+- Install dependencies:
+  ```bash
+  pnpm install
+  # or
+  yarn install
+  ```
+
+- Generate database client:
+  ```bash
+  pnpm db:generate:none
+  # or
+  yarn yarn:pre:db
+  ```
+
+- (Recommended) Install the **Todo Tree** VSCode extension to track areas needing updates.
+
+- Start the development server:
+  ```bash
+  pnpm dev
+  # or
+  yarn dev
+  ```
+  App runs at [http://localhost:8080](http://localhost:8080)
+
+### 📆 Production Deployment
+
+```bash
+pnpm deploy
+# or
+yarn yarn:deploy
+```
+
+---
+
+## 🔄 What's Next?
+
+1. Update app details:
+   - `global/config/app.ts` → App name
+   - `global/config/meta/data.ts` → SEO metadata
+   - `global/config/contacts.ts` → Contact info
+   - `src/app/sitemap.ts` → Base URL for sitemap
+
+2. Configure layout:
+   - `src/layouts/_controllers/controllers.tsx` → Global UI controllers
+
+3. Optional:
+   - Update `global/env.mjs` after adding/removing packages or modules
+   - Enable S3 in the tRPC context
+
