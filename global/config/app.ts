@@ -2,14 +2,14 @@
 
 export const app = {
   NAME: 'Arch Framework',
-  VERSION: '2025.03.2201',
-  UPDATE_DATE: 'Mar 22, 2025',
+  VERSION: '2025.04.09.01',
+  UPDATE_DATE: 'Apr 9, 2025',
   SENTRY: {
     dsn: process.env.NEXT_PUBLIC_SENTRY_DSN ?? '',
   },
   Dependencies: {
-    Arch: '1.1.0',
-    React: '18.3.1',
-    NextJs: '14.2.18',
+    Arch: '2.0.0',
+    React: '19.1.0',
+    NextJs: '15.2.5',
   },
 }
