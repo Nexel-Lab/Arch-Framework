@@ -19,7 +19,7 @@ export enum LANG {
   CN = 'CN',
 }
 
-export interface UiState {
+export interface IUiState {
   dark: boolean
   setDark: (dark: boolean) => void
   onToggleDark: () => void

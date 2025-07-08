@@ -1,9 +1,9 @@
-import type { UiState } from './UiState'
+import type { IUiState } from './uiState'
 import { create } from 'zustand'
-import { LANG } from './UiState'
+import { LANG } from './uiState'
 
 /** Global store is here **/
-export const useUiState = create<UiState>((set, get) => ({
+export const useUiState = create<IUiState>((set, get) => ({
   dark: true,
   setDark: (dark) => set(() => ({ dark: dark })),
   onToggleDark: () => set({ dark: !get().dark }),
