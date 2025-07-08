@@ -1,5 +1,4 @@
 # IceJi -- Universal Git Ignore
-/arch/core
 
 # dependencies
 /node_modules

@@ -30,7 +30,7 @@ export const serverSchema = {
   ),
   // DATABASE
   MONGODB_URI: z.string().url(),
-  // AUTH
+  // AUTHENTICATION
   AUTH_FB_APP_ID: z.string(),
   AUTH_FB_APP_SECRET: z.string(),
   AUTH_GITHUB_CLIENT_ID: z.string(),
