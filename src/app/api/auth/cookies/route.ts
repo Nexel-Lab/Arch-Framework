@@ -1,6 +1,6 @@
 // import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
-import { setResponse as setRes } from '@arch/core/utils/server/response.status'
+import { setResponse as setRes } from '#core/utils/server/response.status'
 import { serialize } from 'cookie'
 
 const POST = async (request: Request) => {

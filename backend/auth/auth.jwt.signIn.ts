@@ -1,5 +1,5 @@
 // import { v4 as uuidv4 } from 'uuid'
-import { prisma } from '@arch/core/database/prisma'
+import { prisma } from '#core/database/prisma'
 
 const auroraSignIn = async (
   credentials: Record<'email', string> | undefined,

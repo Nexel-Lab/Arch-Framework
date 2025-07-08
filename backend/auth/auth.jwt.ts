@@ -10,8 +10,8 @@ import { PrismaAdapter } from '@auth/prisma-adapter'
 // import GithubProvider from 'next-auth/providers/github'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
-import { prisma } from '@arch/core/database/prisma'
-import { TIME } from '@arch/core/utils/time'
+import { prisma } from '#core/database/prisma'
+import { TIME } from '#core/utils/time'
 import { env } from '@env'
 import { auroraSignIn } from './auth.jwt.signIn'
 

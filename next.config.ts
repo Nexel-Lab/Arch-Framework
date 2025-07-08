@@ -2,9 +2,6 @@
 import './global/env'
 import type { NextConfig } from 'next'
 import 'dotenv/config'
-// import { fileURLToPath } from 'url'
-// import path, { dirname } from 'path'
-// import { createRequire } from 'node:module'
 import withPlugins from '@theiceji/compose-plugins'
 import withPWAInit from '@ducanh2912/next-pwa'
 // import { withSentryConfig } from '@sentry/nextjs'
@@ -24,11 +21,8 @@ const withPWA = withPWAInit({
     document: '/offline',
   },
   register: true,
+  disable: process.env.NODE_ENV === 'development',
 })
-
-// const __filename = fileURLToPath(import.meta.url)
-// const __dirname = dirname(__filename)
-// const require = createRequire(import.meta.url)
 
 const appExportList = ['standalone', 'export']
 const appExport = process.env.EXPORT !== undefined &&
@@ -137,9 +131,17 @@ const nextConfig: NextConfig = {
 }
 
 // const sentryWebpackPluginOptions = {
-//   silent: true,
 //   org: 'org_name',
 //   project: 'project_name',
+//   silent: !process.env.CI,
+//   widenClientFileUpload: true,
+//   reactComponentAnnotation: {
+//     enabled: true,
+//   },
+//   tunnelRoute: '/monitoring',
+//   hideSourceMaps: true,
+//   disableLogger: true,
+//   automaticVercelMonitors: true,
 // }
 
 const millionConfig = {

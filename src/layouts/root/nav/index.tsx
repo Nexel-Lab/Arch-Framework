@@ -1,7 +1,7 @@
 'use client'
 
 import { useUiState } from '@/store'
-import { Sun, Moon } from '@arch/core/assets/icons'
+import { Sun, Moon } from '#core/assets/icons'
 import { useShallow } from 'zustand/shallow'
 
 const Nav = () => {

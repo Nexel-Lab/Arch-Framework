@@ -2,7 +2,7 @@
 import type { User } from '@prisma/client'
 import { NextResponse } from 'next/server'
 import { Parser } from '@json2csv/plainjs'
-import { prisma } from '@arch/core/database'
+import { prisma } from '#core/database'
 import { env } from '@env'
 export const GET = async (req: Request) => {
   const authHeader = req.headers.get('authorization')

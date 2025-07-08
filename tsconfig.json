@@ -38,7 +38,8 @@
       "public/*": ["public/*"],
       "types": ["types"],
       "types/*": ["types/*"],
-      "@arch/*": ["arch/*"]
+      "#arch/*": ["arch/*"],
+      "#core/*": ["arch/core/*"]
     },
     "typeRoots": ["./node_modules/@types", "./types/*.d.ts"],
     "target": "ES2020"

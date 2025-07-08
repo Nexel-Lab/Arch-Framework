@@ -13,8 +13,8 @@ import { headers } from 'next/headers'
 // import FacebookProvider from 'next-auth/providers/facebook'
 // import GithubProvider from 'next-auth/providers/github'
 import { env } from '@env'
-import { prisma } from '@arch/core/database/prisma'
-import { TIME } from '@arch/core/utils/time'
+import { prisma } from '#core/database/prisma'
+import { TIME } from '#core/utils/time'
 
 declare module 'next-auth' {
   interface User extends DefaultUser {

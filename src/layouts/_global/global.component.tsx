@@ -1,5 +1,5 @@
-import { Toast } from '@arch/core/view/toast'
-import { Progress } from '@arch/core/view/bprogress'
+import { Toast } from '#core/view/toast'
+import { Progress } from '#core/view/bprogress'
 import { theme } from '@config'
 // import { Modal } from './modal'
 

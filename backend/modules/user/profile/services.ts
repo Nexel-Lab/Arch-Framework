@@ -1,6 +1,6 @@
 import type { usernameInput, updateUserProfileInput } from './schema'
 import type { Context } from '@backend/trpc/trpc.context'
-import { trpcResponse } from '@arch/core/utils/server/trpc'
+import { trpcResponse } from '#core/utils/server/trpc'
 
 export const getProfileByUsername = async ({
   ctx,

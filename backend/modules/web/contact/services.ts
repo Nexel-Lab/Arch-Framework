@@ -1,7 +1,7 @@
 import type { dropEmailInput } from './schema'
 import type { Context } from '@backend/trpc/trpc.context'
 import { WEB } from '@/enums/database'
-import { trpcResponse } from '@arch/core/utils/server/trpc'
+import { trpcResponse } from '#core/utils/server/trpc'
 
 export const dropEmail = async ({
   ctx,
