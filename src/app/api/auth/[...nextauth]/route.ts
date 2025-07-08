@@ -1,7 +1,7 @@
-import type { Adapter } from 'next-auth/adapters'
+import { authOptions } from '@backend/auth'
 import type { NextAuthOptions } from 'next-auth'
 import NextAuth from 'next-auth'
-import { authOptions } from '@backend/auth'
+import type { Adapter } from 'next-auth/adapters'
 
 const handler = NextAuth(authOptions as NextAuthOptions & { adapter: Adapter })
 export { handler as GET, handler as POST }

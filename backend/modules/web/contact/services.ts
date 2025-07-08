@@ -1,7 +1,7 @@
-import type { dropEmailInput } from './schema'
 import type { Context } from '@backend/trpc/trpc.context'
-import { WEB } from '@/enums/database'
-import { trpcResponse } from '@arch/core/utils/server/trpc'
+import { trpcResponse } from '#core/utils/server/trpc'
+import { WEB } from '../_h'
+import type { dropEmailInput } from './schema'
 
 export const dropEmail = async ({
   ctx,
@@ -21,7 +21,7 @@ export const dropEmail = async ({
           where: { key: WEB.NEWS_LETTER },
           data: {
             value: {
-              users: [...subscribeList.content['users'], input],
+              users: [...subscribeList.content.users, input],
             },
           },
         })
@@ -37,7 +37,7 @@ export const dropEmail = async ({
       })
     }
     return trpcResponse.success('Drop email success')
-  } catch (e) {
+  } catch (_e) {
     throw new Error("Database/Aurora/Newsletter: Can't add user email")
   }
 }

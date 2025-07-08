@@ -1,12 +1,12 @@
-import type { UiState } from './UiState'
 import { create } from 'zustand'
-import { LANG } from './UiState'
+import type { IUiState } from './uiState'
+import { LANG } from './uiState'
 
 /** Global store is here **/
-export const useUiState = create<UiState>((set, get) => ({
-  dark: true,
-  setDark: (dark) => set(() => ({ dark: dark })),
-  onToggleDark: () => set({ dark: !get().dark }),
+export const useUiState = create<IUiState>((set, get) => ({
+  isDark: true,
+  setIsDark: (dark) => set(() => ({ isDark: dark })),
+  onToggleIsDark: () => set({ isDark: !get().isDark }),
   lang: LANG.TH,
   setLang: (lang) => set({ lang: lang }),
   modal: undefined,

@@ -1,14 +1,10 @@
-import type { CSSProperties, HTMLAttributes } from 'react'
 import NextImage from 'next/image'
+import type { CSSProperties, HTMLAttributes } from 'react'
 
 type ObjectFit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down'
 type ObjectPosition = string | `${number}% ${number}%`
 
-interface BaseImageProps
-  extends Pick<
-    HTMLAttributes<HTMLImageElement>,
-    'onClick' | 'onLoad' | 'onError'
-  > {
+interface ImageProps extends HTMLAttributes<HTMLImageElement> {
   src: string
   alt: string // Making alt required for accessibility
   className?: string
@@ -16,24 +12,13 @@ interface BaseImageProps
   objectPosition?: ObjectPosition
   quality?: number
   priority?: boolean
-}
-
-interface UnoptimizedImageProps extends BaseImageProps {
-  unoptimized: true
+  unoptimized?: boolean
   width?: number
   height?: number
-}
-
-interface OptimizedImageProps extends BaseImageProps {
-  unoptimized?: false
   fill?: boolean
-  width?: number
-  height?: number
   blurDataURL?: string
   loading?: 'lazy' | 'eager'
 }
-
-type ImageProps = UnoptimizedImageProps | OptimizedImageProps
 
 const DEFAULT_BLUR_DATA_URL =
   'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='
@@ -55,7 +40,7 @@ export const Image = ({
   }
 
   if (unoptimized) {
-    const { width, height } = props
+    const { width, height, fill: _, blurDataURL: _1, ...imageProps } = props
     const style =
       width && height
         ? imageStyle
@@ -67,30 +52,33 @@ export const Image = ({
           }
 
     return (
+      // biome-ignore lint/performance/noImgElement: <image component>
       <img
-        src={src}
         alt={alt}
         className={className}
+        height={height}
+        src={src}
         style={style as CSSProperties}
         width={width}
-        height={height}
-        {...props}
+        {...imageProps}
       />
     )
   }
 
-  const optimizedProps = props as OptimizedImageProps
+  const { width, height, fill, blurDataURL, ...imageProps } = props
+  const nextProps = fill ? { fill: true } : { width, height }
 
   return (
     <NextImage
-      src={src}
       alt={alt}
+      blurDataURL={blurDataURL ?? DEFAULT_BLUR_DATA_URL}
       className={className}
-      style={imageStyle}
-      quality={quality}
       placeholder='blur'
-      blurDataURL={optimizedProps.blurDataURL ?? DEFAULT_BLUR_DATA_URL}
-      {...props}
+      quality={quality}
+      src={src}
+      style={imageStyle}
+      {...imageProps}
+      {...nextProps}
     />
   )
 }

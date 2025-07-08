@@ -1,10 +1,10 @@
-import { uuidv7 } from 'uuidv7'
+import type { Context } from '@backend/trpc/trpc.context'
 import { compare, hash } from 'bcryptjs'
 import { serialize } from 'cookie'
+import { uuidv7 } from 'uuidv7'
+import { getErrorMessage } from '#core/utils/server/error'
+import { trpcResponse } from '#core/utils/server/trpc'
 import type { signinInput, signupInput } from './schema'
-import type { Context } from '@backend/trpc/trpc.context'
-import { getErrorMessage } from '@arch/core/utils/server/error'
-import { trpcResponse } from '@arch/core/utils/server/trpc'
 
 export const signin = async ({
   ctx,
@@ -45,7 +45,7 @@ export const signin = async ({
 
     ctx.resHeaders.append(
       'Set-Cookie',
-      serialize(cookiePrefix + 'next-auth.session-token', sessionToken, {
+      serialize(`${cookiePrefix}next-auth.session-token`, sessionToken, {
         httpOnly: true,
         secure: useSecureCookies,
         sameSite: 'lax',

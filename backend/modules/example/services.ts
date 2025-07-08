@@ -1,8 +1,8 @@
-import type { exampleInput } from './schema'
 import type { Context } from '@backend/trpc/trpc.context'
+import type { exampleInput } from './schema'
 
-export const example = async ({
-  ctx,
+export const example = ({
+  ctx: _ctx,
   input,
 }: {
   ctx: Context

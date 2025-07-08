@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 import { trpc } from '@trpc'
 
 function Client(p: { session: Session | null }) {
-  const clientQuery = trpc.debugger.testQuery.useQuery({ text: 'COSMOS' })
+  const clientQuery = trpc.debugger.testQuery.useQuery({ text: 'ARCH' })
   const clientMutation = trpc.debugger.testMutation.useMutation({
     onSuccess: (data) => {
       if (data?.success && data.message) {
@@ -48,26 +48,44 @@ function Client(p: { session: Session | null }) {
     <>
       <h6 className='mb-2 text-xl'>Client:</h6>
       <div className='w-full space-y-1 rounded-md bg-foreground/5 p-4 text-center'>
-        <p>
-          {clientQuery.isLoading
-            ? 'Loading..'
-            : clientQuery.data
-              ? clientQuery.data.message
-              : 'Client query not working'}
-        </p>
+        {clientQuery.isLoading ? (
+          <p>Loading..</p>
+        ) : clientQuery.data ? (
+          <p>
+            Client query is{' '}
+            <span className='bg-green-500/10 px-2 text-green-500'>working</span>
+          </p>
+        ) : (
+          <p>
+            Client query{' '}
+            <span className='bg-red-500/10 px-2 text-red-500'>not working</span>
+          </p>
+        )}
+
         <form onSubmit={onTestMutation}>
           <input
-            type='text'
+            className='rounded-md bg-foreground/5 px-2 py-1 text-center'
             name='text'
             placeholder='Test mutation'
-            className='rounded-md bg-foreground/5 px-2 py-1 text-center'
+            type='text'
           />
         </form>
         {secretMessage ? <p>{secretMessage}</p> : <p>No session</p>}
       </div>
       <h6 className='mt-6 mb-2 text-xl'>Server:</h6>
       <div className='w-full space-y-1 rounded-md bg-foreground/5 p-4 text-center'>
-        <p>{trpcServerData ? trpcServerData : 'Loading..'}</p>
+        <p>
+          {trpcServerData ? (
+            <p>
+              Server caller is{' '}
+              <span className='bg-green-500/10 px-2 text-green-500'>
+                working
+              </span>
+            </p>
+          ) : (
+            'Loading..'
+          )}
+        </p>
       </div>
     </>
   )

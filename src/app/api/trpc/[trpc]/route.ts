@@ -1,10 +1,9 @@
-import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
-import { env } from '@env'
 import { router } from '@backend/controllers'
 import { createTRPCContext } from '@backend/trpc/trpc.context'
+import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 
 const handler = (request: Request) => {
-  if (env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development') {
     console.log(`incoming request ${request.url}`)
   }
   return fetchRequestHandler({
@@ -14,7 +13,7 @@ const handler = (request: Request) => {
     router,
     createContext: createTRPCContext,
     onError:
-      env.NODE_ENV === 'development'
+      process.env.NODE_ENV === 'development'
         ? ({ path, error }) => {
             console.error(
               `❌ tRPC failed on ${path ?? '<no-path>'}: ${error.message}`,

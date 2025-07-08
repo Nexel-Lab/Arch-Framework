@@ -1,42 +1,40 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
 import { useShallow } from 'zustand/shallow'
-import { useUiState, MODAL } from '@/store'
-import { useOnClickOutside } from '@arch/core/hooks/events'
-import { useLockedBody } from '@arch/core/hooks/layouts'
+import { useOnClickOutside } from '#core/hooks/events'
+import { useLockedBody } from '#core/hooks/layouts'
+import { MODAL, useUiState } from '@/store'
 import { SomethingModal } from './modal.something'
 // import { SomethingModal } from './modal.something'
 
 export const Modal = () => {
-  const [_modal, _onClearModal] = useUiState(
+  const [modal, onClearModal] = useUiState(
     useShallow((st) => [st.modal, st.onClearModal]),
   )
 
   const $modal = useRef(null)
-  useOnClickOutside($modal, () => _onClearModal())
+  useOnClickOutside($modal, () => onClearModal())
 
   const [_locked, setLocked] = useLockedBody()
   useEffect(() => {
-    setLocked(_modal !== undefined)
-  }, [_modal, setLocked])
+    setLocked(modal !== undefined)
+  }, [modal, setLocked])
   return (
-    <>
-      <AnimatePresence>
-        {_modal !== undefined && (
-          <motion.div
-            className='fixed top-0 left-0 z-100 flex h-dvh w-dvw items-center justify-center bg-background/60 backdrop-blur-lg'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            {_modal === MODAL.APP_INFO && (
-              <SomethingModal $ref={$modal} _onClearModal={_onClearModal} />
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+    <AnimatePresence>
+      {modal !== undefined && (
+        <motion.div
+          animate={{ opacity: 1 }}
+          className='fixed top-0 left-0 z-100 flex h-dvh w-dvw items-center justify-center bg-background/60 backdrop-blur-lg'
+          exit={{ opacity: 0 }}
+          initial={{ opacity: 0 }}
+        >
+          {modal === MODAL.APP_INFO && (
+            <SomethingModal _onClearModal={onClearModal} $ref={$modal} />
+          )}
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }

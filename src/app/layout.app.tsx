@@ -1,35 +1,50 @@
+/** biome-ignore-all lint/correctness/useHookAtTopLevel: <for performance purposes> */
 'use client'
 
-import type { Session } from 'next-auth'
-import { usePathname } from 'next/navigation'
 import { trpc } from '@backend/trpc/client'
-// import LoginPage from './(root)/login/page'
-import LandingPage from './(root)/page'
+import { redirect, usePathname } from 'next/navigation'
+import type { Session } from 'next-auth'
+import { useEffect, useState } from 'react'
+import { Loading } from './loading'
 
 type AppPropsWithSlot = {
   children: React.ReactNode
   session: Session | null
-  app: React.ReactNode
 }
 
-export const App = ({ children, session, app }: AppPropsWithSlot) => {
+export const App = ({ children, session }: AppPropsWithSlot) => {
   const pathname = usePathname()
   if (
-    pathname.includes('/about') ||
-    pathname.includes('/debug') ||
-    pathname.includes('/share')
+    pathname.includes('/welcome') ||
+    pathname.includes('/sso') ||
+    pathname.includes('/debug')
   ) {
     return children
   }
 
-  const { data } = trpc.user.session.isValidSession.useQuery()
-  if (session && data && data.isSession) {
-    return app
+  const [isLoading, setIsLoading] = useState(true)
+  const [haveSession, setHaveSession] = useState(false)
+
+  const { mutate } = trpc.user.session.isValidSession.useMutation({
+    onSuccess: (data) => {
+      if (session && data && data.isSession) {
+        setIsLoading(false)
+        setHaveSession(true)
+      } else {
+        setIsLoading(false)
+        setHaveSession(false)
+      }
+    },
+  })
+
+  useEffect(() => {
+    mutate()
+  }, [mutate])
+
+  if (isLoading) return <Loading />
+  if (!haveSession) {
+    redirect('/welcome')
   }
 
-  return (
-    <>
-      <LandingPage />
-    </>
-  )
+  return children
 }

@@ -1,7 +1,7 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "organizeImports": {
-    "enabled": true
+  "$schema": "https://biomejs.dev/schemas/2.1.0/schema.json",
+  "files": {
+    "includes": ["**/*.{ts,tsx}", "!**/glslEditor.min.js"]
   },
   "formatter": {
     "enabled": true,
@@ -12,7 +12,6 @@
   },
   "linter": {
     "enabled": true,
-    "ignore": ["**/glslEditor.min.js"],
     "rules": {
       "recommended": true,
       "a11y": {
@@ -98,8 +97,12 @@
   },
   "overrides": [
     {
-      "include": ["**/*.test.ts"],
-      "ignore": ["**/glslEditor.min.js"],
+      "includes": ["**/*.test.ts", "package.json"],
+      "json": {
+        "formatter": {
+          "expand": "auto"
+        }
+      },
       "linter": {
         "rules": {
           "suspicious": {
@@ -114,5 +117,31 @@
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "useSortedAttributes": "on",
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              ["npm:*", "npm:*/**"],
+              ":PACKAGE_WITH_PROTOCOL:",
+              ":URL:",
+              ":PACKAGE:",
+              ["#core/*", "#core/**"],
+              ["#cosmos/*", "#cosmos/**"],
+              ["#prisma/*", "#prisma/**"],
+              ["#nexus/*", "#nexus/**"],
+              ":ALIAS:",
+              [":BUN:", ":NODE:"],
+              ":PATH:"
+            ]
+          }
+        }
+      }
+    }
   }
 }

@@ -30,7 +30,8 @@ export const serverSchema = {
   ),
   // DATABASE
   MONGODB_URI: z.string().url(),
-  // AUTH
+  // AUTHENTICATION
+  AUTHORIZE: z.string(),
   AUTH_FB_APP_ID: z.string(),
   AUTH_FB_APP_SECRET: z.string(),
   AUTH_GITHUB_CLIENT_ID: z.string(),
@@ -40,25 +41,25 @@ export const serverSchema = {
   AUTH_DISCORD_CLIENT_ID: z.string(),
   AUTH_DISCORD_CLIENT_SECRET: z.string(),
   // S3
-  S3_ORIGINS: z.preprocess((value) => {
-    const str = String(value)
-    return str.split(',')
-  }, z.array(z.string()).optional()),
-  S3_UPLOAD_ENDPOINT: z.string(),
-  S3_UPLOAD_KEY: z.string(),
-  S3_UPLOAD_SECRET: z.string(),
-  S3_UPLOAD_REGION: z.string(),
-  S3_UPLOAD_BUCKET: z.string(),
+  // S3_ORIGINS: z.preprocess((value) => {
+  //   const str = String(value)
+  //   return str.split(',')
+  // }, z.array(z.string()).optional()),
+  // S3_UPLOAD_ENDPOINT: z.string(),
+  // S3_UPLOAD_KEY: z.string(),
+  // S3_UPLOAD_SECRET: z.string(),
+  // S3_UPLOAD_REGION: z.string(),
+  // S3_UPLOAD_BUCKET: z.string(),
   // EMAIL
-  EMAIL_HOST: z.string(),
-  EMAIL_PORT: z.preprocess((x) => Number.parseInt(String(x)), z.number()),
-  EMAIL_SECURE: z.preprocess(
-    (val) => val === true || val === 'true',
-    z.boolean(),
-  ),
-  EMAIL_USER: z.string(),
-  EMAIL_PASS: z.string(),
-  EMAIL_FROM: z.string(),
+  // EMAIL_HOST: z.string(),
+  // EMAIL_PORT: z.preprocess((x) => Number.parseInt(String(x)), z.number()),
+  // EMAIL_SECURE: z.preprocess(
+  //   (val) => val === true || val === 'true',
+  //   z.boolean(),
+  // ),
+  // EMAIL_USER: z.string(),
+  // EMAIL_PASS: z.string(),
+  // EMAIL_FROM: z.string(),
   // PAYMENT
   // STRIPE_SECRET_KEY: z.string(),
   // STRIPE_WEBHOOK_SECRET: z.string(),

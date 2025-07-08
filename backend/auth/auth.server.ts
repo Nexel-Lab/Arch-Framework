@@ -1,4 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { PrismaAdapter } from '@auth/prisma-adapter'
+import { env } from '@env'
+import { headers } from 'next/headers'
 import type {
   AuthOptions,
   DefaultSession,
@@ -6,15 +10,11 @@ import type {
   NextAuthOptions,
 } from 'next-auth'
 import { getServerSession } from 'next-auth'
-import { PrismaAdapter } from '@auth/prisma-adapter'
-import { headers } from 'next/headers'
-
-// import GoogleProvider from 'next-auth/providers/google'
-// import FacebookProvider from 'next-auth/providers/facebook'
-// import GithubProvider from 'next-auth/providers/github'
-import { env } from '@env'
-import { prisma } from '@arch/core/database/prisma'
-import { TIME } from '@arch/core/utils/time'
+import FacebookProvider from 'next-auth/providers/facebook'
+import GithubProvider from 'next-auth/providers/github'
+import GoogleProvider from 'next-auth/providers/google'
+import { prisma } from '#core/database/prisma'
+import { TIME } from '#core/utils/time'
 
 declare module 'next-auth' {
   interface User extends DefaultUser {
@@ -90,20 +90,20 @@ export const authOptions:
     strategy: 'database',
     maxAge: TIME.MONTH,
   },
-  // providers: [
-  //   GoogleProvider({
-  //     clientId: env.AUTH_GOOGLE_CLIENT_ID,
-  //     clientSecret: env.AUTH_GOOGLE_CLIENT_SECRET,
-  //   }),
-  //   FacebookProvider({
-  //     clientId: env.AUTH_FB_APP_ID,
-  //     clientSecret: env.AUTH_FB_APP_SECRET,
-  //   }),
-  //   GithubProvider({
-  //     clientId: env.AUTH_GITHUB_CLIENT_ID,
-  //     clientSecret: env.AUTH_GITHUB_CLIENT_SECRET,
-  //   }),
-  // ],
+  providers: [
+    GoogleProvider({
+      clientId: env.AUTH_GOOGLE_CLIENT_ID,
+      clientSecret: env.AUTH_GOOGLE_CLIENT_SECRET,
+    }),
+    FacebookProvider({
+      clientId: env.AUTH_FB_APP_ID,
+      clientSecret: env.AUTH_FB_APP_SECRET,
+    }),
+    GithubProvider({
+      clientId: env.AUTH_GITHUB_CLIENT_ID,
+      clientSecret: env.AUTH_GITHUB_CLIENT_SECRET,
+    }),
+  ],
   secret: env.NEXTAUTH_SECRET,
   debug: process.env.NODE_ENV === 'development',
 }

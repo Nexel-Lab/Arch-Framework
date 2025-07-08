@@ -1,15 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
-import type { TForm } from '../functions'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { trpc } from '@backend/trpc/client'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
-import { validateEmail, validatePassword } from '@arch/core/utils/validator'
-import { formHandler } from '../functions'
-import { trpc } from '@backend/trpc/client'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { toast as t } from 'react-toastify'
+import { validateEmail, validatePassword } from '#core/utils/validator'
+import type { TForm } from '../functions'
+import { formHandler } from '../functions'
 
 const SignUpEmail = () => {
   const router = useRouter()
@@ -73,64 +72,64 @@ const SignUpEmail = () => {
 
   return (
     <motion.div
-      className='relative'
-      initial={{ opacity: 0, x: 50 }}
       animate={{ opacity: 1, x: 0 }}
+      className='relative'
       exit={{ opacity: 0, x: 50 }}
+      initial={{ opacity: 0, x: 50 }}
     >
       <h6 className='font-semibold uppercase'>Register</h6>
       <form className='flex flex-col space-y-2 pt-4' onSubmit={handleSubmit}>
         <label className={clsx('flex flex-col', isLoading && 'opacity-40')}>
           <input
+            autoCapitalize='off'
+            autoComplete='off'
+            autoCorrect='off'
             className={clsx(
               'rounded-sm bg-black/5 px-2 py-1 dark:bg-white/10',
               isLoading && 'opacity-40',
             )}
-            type='email'
+            disabled={isLoading}
             name='email'
+            onChange={handleChange}
             placeholder='E-mail'
-            autoCorrect='off'
-            autoCapitalize='off'
-            autoComplete='off'
             required={true}
-            onChange={handleChange}
-            disabled={isLoading}
+            type='email'
           />
         </label>
         <label className={clsx('flex flex-col', isLoading && 'opacity-40')}>
           <input
+            autoCapitalize='off'
+            autoComplete='off'
+            autoCorrect='off'
             className={clsx(
               'rounded-sm bg-black/5 px-2 py-1 dark:bg-white/10',
               isLoading && 'opacity-40',
             )}
-            type='password'
+            disabled={isLoading}
             name='password'
-            placeholder='Password'
-            autoCorrect='off'
-            autoCapitalize='off'
-            autoComplete='off'
-            required={true}
             onChange={handleChange}
-            disabled={isLoading}
+            placeholder='Password'
+            required={true}
+            type='password'
           />
         </label>
         <label className={clsx('flex flex-col', isLoading && 'opacity-40')}>
           <input
+            autoCapitalize='off'
+            autoComplete='off'
+            autoCorrect='off'
             className={clsx(
               'rounded-sm bg-black/5 px-2 py-1 dark:bg-white/10',
               isLoading && 'opacity-40',
             )}
-            type='password'
-            name='confirm_password'
-            placeholder='Confirm Password'
-            autoCorrect='off'
-            autoCapitalize='off'
-            autoComplete='off'
-            required={true}
             disabled={isLoading}
+            name='confirm_password'
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setConfirmPassword(e.target.value)
             }
+            placeholder='Confirm Password'
+            required={true}
+            type='password'
           />
         </label>
         <button
@@ -138,8 +137,8 @@ const SignUpEmail = () => {
             'Anim AnimOpacity-60 mt-5 rounded-md bg-white/60 py-1 hover:bg-white/100 dark:bg-slate-800/80 dark:hover:bg-slate-600/100',
             isLoading && 'opacity-40',
           )}
-          type='submit'
           disabled={isLoading}
+          type='submit'
         >
           Register
         </button>

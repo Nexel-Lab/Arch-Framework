@@ -1,7 +1,7 @@
 import { createEnv } from '@t3-oss/env-nextjs'
-import { serverSchema } from './server.schema'
 import { clientSchema } from './client.schema'
 import { runtimeEnv } from './runtime.env'
+import { serverSchema } from './server.schema'
 
 // TODO: (Optional 1) - update app env
 

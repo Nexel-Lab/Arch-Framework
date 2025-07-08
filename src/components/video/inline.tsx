@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { cn } from '@/libs/styles'
 
 interface VideoInlineProps {
@@ -17,8 +17,7 @@ const VideoInline: React.FC<VideoInlineProps> = ({
   videoUrl,
   posterUrl,
   className,
-  // biome-ignore lint/correctness/noUnusedVariables: <explanation>
-  noPause = true,
+  noPause: _noPause = true,
   loop = true,
   muted = true,
   autoPlay = true,
@@ -44,24 +43,23 @@ const VideoInline: React.FC<VideoInlineProps> = ({
   }, [])
 
   return (
-    <>
-      <div className='pointer-events-none h-dvh w-dvw'>
-        <video
-          ref={$videoRef}
-          playsInline
-          autoPlay={autoPlay}
-          preload='auto'
-          loop={loop}
-          muted={muted}
-          className={cn('h-full w-full', className)}
-          style={{ objectFit: 'cover' }}
-          poster={posterUrl}
-        >
-          <source src={videoUrl} type='video/mp4' />
-          {posterUrl && <img src={posterUrl} alt='Video thumbnail' />}
-        </video>
-      </div>
-    </>
+    <div className='pointer-events-none h-dvh w-dvw'>
+      <video
+        autoPlay={autoPlay}
+        className={cn('h-full w-full', className)}
+        loop={loop}
+        muted={muted}
+        playsInline
+        poster={posterUrl}
+        preload='auto'
+        ref={$videoRef}
+        style={{ objectFit: 'cover' }}
+      >
+        <source src={videoUrl} type='video/mp4' />
+        {/** biome-ignore lint/performance/noImgElement: <for Video preview thumbnail> */}
+        {posterUrl && <img alt='Video thumbnail' src={posterUrl} />}
+      </video>
+    </div>
   )
 }
 

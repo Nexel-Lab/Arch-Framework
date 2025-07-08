@@ -23,3 +23,9 @@ export const updateUserProfileSchema = z.object({
   }),
 })
 export type updateUserProfileInput = z.input<typeof updateUserProfileSchema>
+
+export const updateUserEmailSchema = z.object({
+  email: z.string().length(10),
+})
+
+export type updateUserEmailInput = z.input<typeof updateUserEmailSchema>

@@ -3,8 +3,8 @@
 import type { Session } from 'next-auth'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../auth'
-import { prisma } from '@arch/core/database'
-// import { s3 } from '@arch/core/storage'
+import { prisma } from '#core/database'
+// import { s3 } from '#core/storage'
 import type { FetchCreateContextFnOptions } from '@trpc/server/adapters/fetch'
 
 type CreateContextOptions = {

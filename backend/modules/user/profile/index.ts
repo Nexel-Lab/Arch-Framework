@@ -1,2 +1,10 @@
-export * as SERVICES from './services'
-export * as SCHEMA from './schema'
+export {
+  updateUserEmailSchema,
+  updateUserProfileSchema,
+  usernameSchema,
+} from './schema'
+export {
+  getProfileByUsername,
+  updateUserEmail,
+  updateUserProfile,
+} from './services'
