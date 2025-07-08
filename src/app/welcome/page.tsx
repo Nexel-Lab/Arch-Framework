@@ -1,9 +1,9 @@
 'use client'
 
 import { app } from '@config'
-import { Check, Copy, ExternalLink } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { RootLayout } from '@/layouts'
 import { cn } from '@/libs'
 
@@ -64,26 +64,8 @@ const folderStructure = [
   { name: 'prod', description: 'CI/CD, Docker, and production deployment' },
 ]
 
-enum MANAGER_NAME {
-  PNPM = 'pnpm',
-  NPM = 'npm',
-  YARN = 'yarn',
-  BUN = 'bun',
-}
-
-const packageManagers: Record<MANAGER_NAME, string> = {
-  [MANAGER_NAME.PNPM]: 'pnpm dlx create-arch-app my-project',
-  [MANAGER_NAME.NPM]: 'npx create-arch-app my-project',
-  [MANAGER_NAME.YARN]: 'yarn create-arch-app my-project',
-  [MANAGER_NAME.BUN]: 'bunx create-arch-app my-project',
-}
-
 const Page = () => {
   const $cursor = useRef<HTMLDivElement | null>(null)
-  const [selectedManager, setSelectedManager] = useState<MANAGER_NAME>(
-    MANAGER_NAME.PNPM,
-  )
-  const [copied, setCopied] = useState(false)
 
   const onMouseMove = (event: MouseEvent) => {
     const { clientX, clientY } = event
@@ -132,49 +114,6 @@ const Page = () => {
               ))}
             </div>
           </div>
-          <div className='mb-6 w-full max-w-4xl rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm'>
-            <h2 className='mb-3 text-center font-bold text-2xl'>
-              Ready to Start?
-            </h2>
-            <div className='mb-1 flex justify-center'>
-              <div className='flex rounded-lg bg-black/20 p-1'>
-                {Object.values(MANAGER_NAME).map((manager) => (
-                  <button
-                    className={`rounded-md px-3 py-1 font-medium text-xs transition-all ${
-                      selectedManager === manager
-                        ? 'bg-purple-600 text-white'
-                        : 'text-purple-300 hover:bg-white/10 hover:text-white'
-                    }`}
-                    key={manager}
-                    onClick={() => setSelectedManager(manager)}
-                  >
-                    {manager}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className='relative mx-auto max-w-lg rounded-lg bg-black/30 p-4 text-center text-purple-300'>
-              <code>{packageManagers[selectedManager]}</code>
-              <button
-                className='-translate-y-1/2 absolute top-1/2 right-3 transform rounded p-1 transition-colors hover:bg-white/10'
-                onClick={() => {
-                  navigator.clipboard.writeText(
-                    packageManagers[selectedManager],
-                  )
-                  setCopied(true)
-                  setTimeout(() => setCopied(false), 2000)
-                }}
-                title='Copy to clipboard'
-              >
-                {copied ? (
-                  <Check className='h-4 w-4 text-green-400' />
-                ) : (
-                  <Copy className='h-4 w-4 text-purple-300 hover:text-white' />
-                )}
-              </button>
-            </div>
-          </div>
-
           <div className='grid w-full max-w-4xl gap-4 md:grid-cols-2 lg:grid-cols-3'>
             {folderStructure.map((folder) => (
               <div
