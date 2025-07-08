@@ -1,5 +1,5 @@
 export { useUiState } from './ui.store'
-export { MODAL, CURSOR, LANG } from './UiState'
+export { MODAL, CURSOR, LANG } from './uiState'
 export { useAppState } from './app.store'
 export { useUserState } from './user.store'
-export type { User } from './UserState'
+export type { IUser } from './userState'

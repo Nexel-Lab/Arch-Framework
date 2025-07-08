@@ -1,11 +1,11 @@
-export interface User {
+export interface IUser {
   email: string
 }
 
-export interface UserState {
-  user: User | undefined
-  setUser: (u: User) => boolean
-  getUser: () => User | undefined
+export interface IUserState {
+  user: IUser | undefined
+  setUser: (u: IUser) => boolean
+  getUser: () => IUser | undefined
   resetData: () => void
   resetCookies: () => Promise<void>
 }
