@@ -1,25 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { AuthOptions, Awaitable, DefaultSession, DefaultUser, NextAuthOptions, User } from 'next-auth'
-import type { JWT } from 'next-auth/jwt'
-import type { AdapterUser } from 'next-auth/adapters'
-import { getServerSession } from 'next-auth'
 import { PrismaAdapter } from '@auth/prisma-adapter'
-// import GoogleProvider from 'next-auth/providers/google'
-// import FacebookProvider from 'next-auth/providers/facebook'
-// import GithubProvider from 'next-auth/providers/github'
+import { env } from '@env'
+import type {
+  AuthOptions,
+  Awaitable,
+  DefaultSession,
+  DefaultUser,
+  NextAuthOptions,
+  User,
+} from 'next-auth'
+import { getServerSession } from 'next-auth'
+import type { AdapterUser } from 'next-auth/adapters'
+import type { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
-
+import FacebookProvider from 'next-auth/providers/facebook'
+import GithubProvider from 'next-auth/providers/github'
+import GoogleProvider from 'next-auth/providers/google'
 import { prisma } from '#core/database/prisma'
 import { TIME } from '#core/utils/time'
-import { env } from '@env'
-import { auroraSignIn } from './auth.jwt.signIn'
+import { archSignIn } from './auth.jwt.signIn'
 
 /** Next-Auth Configs here **/
-
-// const useSecureCookies = env.NODE_ENV === 'production'
-// const cookiePrefix = useSecureCookies ? '__Secure-' : ''
-// const hostName = new URL(env.NEXTAUTH_URL).hostname
 
 declare module 'next-auth' {
   interface User extends DefaultUser {
@@ -51,18 +53,6 @@ export const authOptions:
   //     error: '/',
   //     newUser: '/',
   //   },
-  // cookies: {
-  //   sessionToken: {
-  //     name: `${cookiePrefix}next-auth.session-token`,
-  //     options: {
-  //       httpOnly: true,
-  //       sameSite: 'lax',
-  //       path: '/',
-  //       domain: `.${hostName}`,
-  //       secure: useSecureCookies,
-  //     },
-  //   },
-  // },
   callbacks: {
     jwt: ({ token, user }: { token: JWT; user: User | AdapterUser }) => {
       if (user) {
@@ -81,21 +71,21 @@ export const authOptions:
     colorScheme: 'dark',
   },
   providers: [
-    // GoogleProvider({
-    //   clientId: env.AUTH_GOOGLE_CLIENT_ID,
-    //   clientSecret: env.AUTH_GOOGLE_CLIENT_SECRET,
-    // }),
-    // FacebookProvider({
-    //   clientId: env.AUTH_FB_APP_ID,
-    //   clientSecret: env.AUTH_FB_APP_SECRET,
-    // }),
-    // GithubProvider({
-    //   clientId: env.AUTH_GITHUB_CLIENT_ID,
-    //   clientSecret: env.AUTH_GITHUB_CLIENT_SECRET,
-    // }),
+    GoogleProvider({
+      clientId: env.AUTH_GOOGLE_CLIENT_ID,
+      clientSecret: env.AUTH_GOOGLE_CLIENT_SECRET,
+    }),
+    FacebookProvider({
+      clientId: env.AUTH_FB_APP_ID,
+      clientSecret: env.AUTH_FB_APP_SECRET,
+    }),
+    GithubProvider({
+      clientId: env.AUTH_GITHUB_CLIENT_ID,
+      clientSecret: env.AUTH_GITHUB_CLIENT_SECRET,
+    }),
     CredentialsProvider({
       name: 'Email',
-      id: 'aurora-login',
+      id: 'app-login',
       type: 'credentials',
       credentials: {
         email: { label: 'E-mail', type: 'text', placeholder: 'E-mail' },
@@ -103,7 +93,7 @@ export const authOptions:
       authorize: (
         credentials: Record<'email', string> | undefined,
       ): Awaitable<User | null> => {
-        return auroraSignIn(credentials) as Awaitable<User | null>
+        return archSignIn(credentials) as Awaitable<User | null>
       },
     }),
   ],

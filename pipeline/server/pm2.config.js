@@ -2,11 +2,12 @@ module.exports = {
   apps: [
     {
       name: 'arch-app',
-      script: 'server.js',
+      script: 'bun',
+      args: 'run server.js',
       exec_mode: 'cluster', // Enables multi-threading
-      // instances: '2',
+      // instances: 'max',
       // max_memory_restart: '850M',
-      interpreter: 'bun', // Bun interpreter
+      interpreter: 'none', // Ignore nodeJs
       env: {
         PATH: `${process.env.HOME}/.bun/bin:${process.env.PATH}`, // Add "~/.bun/bin/bun" to PATH
       },

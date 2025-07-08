@@ -1,12 +1,13 @@
 // cspell: disable
+
+import { env } from '@env'
+import { Parser } from '@json2csv/plainjs'
 import type { User } from '@prisma/client'
 import { NextResponse } from 'next/server'
-import { Parser } from '@json2csv/plainjs'
 import { prisma } from '#core/database'
-import { env } from '@env'
 export const GET = async (req: Request) => {
   const authHeader = req.headers.get('authorization')
-  if (!authHeader || authHeader !== env.AUTH_SECRET) {
+  if (!authHeader || authHeader !== env.AUTHORIZE) {
     return new NextResponse('Unauthorized', { status: 401 })
   }
 

@@ -1,4 +1,4 @@
-import { TrpcProvider } from './provider.trpc'
+import { TrpcProvider } from './_providers'
 
 /** Global Provider for app is here **/
 

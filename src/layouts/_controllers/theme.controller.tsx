@@ -5,8 +5,8 @@ import { useShallow } from 'zustand/shallow'
 import { useUiState } from '@/store'
 
 export const ThemeController = () => {
-  const [_dark, _setDark] = useUiState(
-    useShallow((st) => [st.dark, st.setDark]),
+  const [isDark, setIsaDark] = useUiState(
+    useShallow((st) => [st.isDark, st.setIsDark]),
   )
 
   useEffect(() => {
@@ -15,17 +15,17 @@ export const ThemeController = () => {
         !('theme' in localStorage)
         // && window.matchMedia('(prefers-color-scheme: dark)').matches
       ) {
-        _setDark(true)
+        setIsaDark(true)
       } else {
-        _setDark(false)
+        setIsaDark(false)
       }
     }
     InitState()
-  }, [_setDark])
+  }, [setIsaDark])
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', _dark)
-  }, [_dark])
+    document.documentElement.classList.toggle('dark', isDark)
+  }, [isDark])
 
   return null
 }

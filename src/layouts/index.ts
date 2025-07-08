@@ -1,2 +1,2 @@
-export { Wrapper } from './wrapper'
 export { RootLayout } from './root'
+export { Wrapper } from './wrapper'

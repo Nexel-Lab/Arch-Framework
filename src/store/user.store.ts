@@ -1,5 +1,5 @@
-import type { IUserState } from './userState'
 import { create } from 'zustand'
+import type { IUserState } from './userState'
 
 export const useUserState = create<IUserState>((set) => ({
   user: undefined,

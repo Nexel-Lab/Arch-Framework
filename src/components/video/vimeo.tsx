@@ -1,10 +1,11 @@
+/** biome-ignore-all lint/correctness/useHookAtTopLevel: <improve performance> */
 'use client'
 
-import type { VideoProps } from './_header'
-import { STATUS } from './_header'
-import { useRef, useState, useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FaPlay } from 'react-icons/fa6'
 import { cn } from '@/libs/styles'
+import type { VideoProps } from './_header'
+import { STATUS } from './_header'
 import { vimeoUrlToId } from './vimeo.urlToId'
 
 const Vimeo: React.FC<VideoProps> = ({
@@ -18,13 +19,13 @@ const Vimeo: React.FC<VideoProps> = ({
   if (!noControl) {
     return (
       <iframe
-        src={`https://player.vimeo.com/video/${id}?title=0&amp;muted=1&amp;autoplay=1&amp;autopause=0&amp;controls=0&amp;loop=1&amp;background=1&amp;app_id=58479`}
-        className='h-full w-full'
-        width='1080'
-        height='608'
         allow='autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media'
+        className='h-full w-full'
         data-ready='false'
+        height='608'
+        src={`https://player.vimeo.com/video/${id}?title=0&amp;muted=1&amp;autoplay=1&amp;autopause=0&amp;controls=0&amp;loop=1&amp;background=1&amp;app_id=58479`}
         title='27June Studio'
+        width='1080'
       />
     )
   }
@@ -103,11 +104,11 @@ const Vimeo: React.FC<VideoProps> = ({
           <Loading />
         </div>
       )}
-      <div ref={iframeRef} className='absolute inset-0 h-full w-full' />
+      <div className='absolute inset-0 h-full w-full' ref={iframeRef} />
       {(status === STATUS.IDLE || (status === STATUS.PLAY && !isPlaying)) && (
         <button
-          onClick={() => setStatus(STATUS.LOADING)}
           className='absolute inset-0 top-0 left-0 flex h-full w-full items-center justify-center bg-opacity-40 transition-opacity hover:bg-opacity-50'
+          onClick={() => setStatus(STATUS.LOADING)}
         >
           <div className='flex h-16 w-16 items-center justify-center rounded-full bg-foreground/20 bg-opacity-80 p-4'>
             <FaPlay className='h-full w-full' />
@@ -116,8 +117,8 @@ const Vimeo: React.FC<VideoProps> = ({
       )}
       {status === STATUS.PLAY && (
         <button
-          onClick={togglePlay}
           className='absolute inset-0 top-0 left-0 flex h-full w-full items-center justify-center bg-opacity-40 transition-opacity hover:bg-opacity-50'
+          onClick={togglePlay}
         />
       )}
     </div>
@@ -130,8 +131,8 @@ const Loading = () => {
       <svg
         aria-hidden='true'
         className='h-8 w-8 animate-spin fill-foreground text-foreground/20'
-        viewBox='0 0 100 101'
         fill='none'
+        viewBox='0 0 100 101'
         xmlns='http://www.w3.org/2000/svg'
       >
         <path

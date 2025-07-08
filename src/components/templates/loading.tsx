@@ -1,11 +1,11 @@
 'use client'
 
+import { AnimatePresence, animate, motion } from 'framer-motion'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
-import { motion, animate, AnimatePresence } from 'framer-motion'
+import { useEffect, useState } from 'react'
 
 const Loading = ({
-  duration = 3,
+  duration = 7,
   description = 'Loading your experience',
 }: {
   duration?: number
@@ -28,44 +28,48 @@ const Loading = ({
   setTimeout(() => setIsLoaded(true), duration * 100)
 
   return (
-    <>
-      <div className='relative flex h-dvh w-dvw flex-col items-center justify-center bg-slate-800'>
-        <div className='relative w-80'>
-          <Image src='/logo_white.svg' width={538.8} height={210} alt='Logo' />
-          {/* <h1 className='mt-6 font-bold text-white'>Loading</h1> */}
-          <ProgressBlock progress={progress} description={description} />
-        </div>
+    <div className='relative flex h-dvh w-dvw flex-col items-center justify-center bg-background'>
+      <div className='relative w-80'>
+        <Image alt='Logo' height={210} src='/logo.svg' width={538.8} />
+        {/* <h1 className='mt-6 font-bold text-white'>Loading</h1> */}
+        <ProgressBlock
+          description={description}
+          duration={duration}
+          progress={progress}
+        />
       </div>
-    </>
+    </div>
   )
 }
 
 const ProgressBlock = ({
   progress,
   description,
+  duration,
 }: {
   progress: string
   description: string
+  duration: number
 }) => (
   <>
     <AnimatePresence>
       <motion.div
-        className='w-full'
-        initial={{ scale: 0 }}
         animate={{ scale: 1 }}
+        className='w-full'
         exit={{ scale: 0 }}
+        initial={{ scale: 0 }}
         transition={{ duration: 0.1 }}
       >
         <h6 className='mt-6 w-full text-center font-semibold text-2xl'>
           {progress}%
         </h6>
-        <div className='mt-5 mb-3 h-[10px] w-full rounded-md'>
+        <div className='mt-5 mb-3 h-[10px] w-full rounded-md border border-foreground/30 bg-foreground/10 p-0.5'>
           <motion.div
-            className='m-0.5 h-[4px] rounded-md bg-primary-0'
             animate={{ width: '100%' }}
+            className='h-full rounded-md bg-primary'
             initial={{ width: 0 }}
             transition={{
-              duration: 1.5,
+              duration: duration,
               ease: [0.33, 1, 0.68, 1],
             }}
           />

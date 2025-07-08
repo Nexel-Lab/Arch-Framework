@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import Link from 'next/link'
+
 import { app } from '@config'
+import Link from 'next/link'
 import { RootLayout } from '@/layouts'
 
 const Page = () => {
@@ -67,9 +68,9 @@ const Page = () => {
               {technologies.map((value, index) => (
                 <Button
                   {...value}
+                  index={index}
                   key={value.title}
                   separator=','
-                  index={index}
                 />
               ))}
               <p>in Your Elite Full-Stack Framework.</p>
@@ -78,7 +79,7 @@ const Page = () => {
           <section className='el:pt-10 pt-6'>
             <div className='flex w-3/4 flex-wrap'>
               <p>1. Get started by editing</p>
-              <Button title='src/app/(root)/page.tsx' link='' />
+              <Button link='' title='src/app/(root)/page.tsx' />
             </div>
             <p>2. Save and see your change instantly</p>
           </section>
@@ -86,27 +87,27 @@ const Page = () => {
             <h6 className='mb-2 font-bold'>Folders structure</h6>
             <ul className='[&>li]:before:-translate-y-1/2 space-y-1 [&>li]:relative [&>li]:ml-2 [&>li]:flex [&>li]:flex-wrap [&>li]:space-x-1 [&>li]:pl-4 [&>li]:before:absolute [&>li]:before:top-1/2 [&>li]:before:left-0 [&>li]:before:h-2 [&>li]:before:w-2 [&>li]:before:rounded-[2px] [&>li]:before:bg-[#a269ff] [&>li]:before:content-[""]'>
               <li>
-                <Button title='src' link='' />
+                <Button link='' title='src' />
                 <p>Source project</p>
               </li>
               <li>
-                <Button title='backend' link='' />
+                <Button link='' title='backend' />
                 <p>tRPC, api, and authentication</p>
               </li>
               <li>
-                <Button title='global' link='' />
+                <Button link='' title='global' />
                 <p>Global config, constants, and environments</p>
               </li>
               <li>
-                <Button title='arch' link='' />
+                <Button link='' title='arch' />
                 <p>Core package, plug-ins, and extensions</p>
               </li>
               <li>
-                <Button title='scripts' link='' />
+                <Button link='' title='scripts' />
                 <p>Utility scripts for app</p>
               </li>
               <li>
-                <Button title='prod' link='' />
+                <Button link='' title='prod' />
                 <p>CI/CD, Docker, and production deployment</p>
               </li>
             </ul>
@@ -136,9 +137,9 @@ const Button = ({
     <>
       {index && index !== 0 && separator}
       <Link
+        className='Anim-1 ml-1 rounded-sm bg-primary/20 px-1 hover:bg-primary hover:text-white dark:bg-primary/40 dark:hover:bg-primary'
         href={link}
         target='_blank'
-        className='Anim-1 ml-1 rounded-sm bg-primary/20 px-1 hover:bg-primary hover:text-white dark:bg-primary/40 dark:hover:bg-primary'
       >
         <button className='rounded-md focus:no-underline active:no-underline'>
           {title}
@@ -149,7 +150,7 @@ const Button = ({
 }
 
 const Logo = () => (
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='#7c29ff'>
+  <svg fill='#7c29ff' viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'>
     <path d='M345.5,212.31l-125.44,212.36c-18.16,30.76-51.23,49.64-86.96,49.64H10.62c-8.2,0-13.29-8.89-9.15-15.96L245.46,42.38c3.66-6.24,12.68-6.26,16.35-.01l83.72,142.32c5.01,8.53,5.01,19.11-.03,27.63Z' />
     <path d='M501.94,474.31h-118.37c-59.26,0-95.1-65.52-63.11-115.42l60.55-94.45c3.83-5.98,12.61-5.78,16.17.34l113.43,194.45c3.91,6.69-.92,15.09-8.67,15.09Z' />
   </svg>
@@ -162,8 +163,8 @@ const Footer = () => {
         <p>
           <span className='opacity-40'>Developed by</span>{' '}
           <Link
-            href='https://theiceji.com'
             className='Anim font-bold md:opacity-60 md:hover:opacity-100'
+            href='https://theiceji.com'
           >
             TheIceJi
           </Link>
@@ -172,8 +173,8 @@ const Footer = () => {
         <p>
           <span className='opacity-40'>Associate with</span>{' '}
           <Link
-            href='https://nexellab.com/'
             className='Anim font-bold md:opacity-60 md:hover:opacity-100'
+            href='https://nexellab.com/'
           >
             Nexel
           </Link>
@@ -182,8 +183,8 @@ const Footer = () => {
         <p className='hidden lg:block'>
           <span className='opacity-40'>Build</span>{' '}
           <Link
-            href='https://github.com/Nexel-Lab/Arch-Framework'
             className='Anim font-bold md:opacity-60 md:hover:opacity-100'
+            href='https://github.com/Nexel-Lab/Arch-Framework'
           >
             {app.VERSION}
           </Link>

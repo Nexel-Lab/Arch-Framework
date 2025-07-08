@@ -1,21 +1,12 @@
 'use client'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { httpBatchLink, loggerLink } from '@trpc/client'
-import superjson from 'superjson'
-import { useState } from 'react'
-import { trpc } from '@trpc'
 import { invalidationRules } from '@config/server'
-
-const getBaseUrl = () => {
-  if (typeof window !== 'undefined') return ''
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`
-  if (process.env.RAILWAY_PUBLIC_DOMAIN)
-    return `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
-  if (process.env.RENDER_INTERNAL_HOSTNAME)
-    return `http://${process.env.RENDER_INTERNAL_HOSTNAME}:${process.env.PORT}`
-  return `http://localhost:${process.env.PORT ?? 8080}`
-}
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { trpc } from '@trpc'
+import { httpBatchLink, loggerLink } from '@trpc/client'
+import { useState } from 'react'
+import superjson from 'superjson'
+import { getBaseUrl } from '#core/utils/url'
 
 export const TrpcProvider = (p: { children: React.ReactNode }) => {
   const [queryClient] = useState(
@@ -87,16 +78,19 @@ export const TrpcProvider = (p: { children: React.ReactNode }) => {
             (opts.direction === 'down' && opts.result instanceof Error),
         }),
         httpBatchLink({
-          url: `${getBaseUrl()}/api/trpc/`,
+          url: `${getBaseUrl(8989)}/api/trpc/`,
           transformer: superjson,
           headers: () => {
             return {
-              framework: 'arch',
+              celestia: 'cosmos',
             }
           },
           fetch: (url, options) => {
+            const { body, ...rest } = options ?? {}
+
             return fetch(url, {
-              ...options,
+              ...rest,
+              body: body as BodyInit,
               credentials: 'include',
               headers: {
                 ...options?.headers,

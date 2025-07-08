@@ -1,5 +1,5 @@
-import type { IAppState } from './appState'
 import { create } from 'zustand'
+import type { IAppState } from './appState'
 
 /** Global store is here **/
 

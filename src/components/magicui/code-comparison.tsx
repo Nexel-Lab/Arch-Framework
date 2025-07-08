@@ -1,9 +1,9 @@
 'use client'
 
 import { FileIcon } from 'lucide-react'
-import { useUiState } from '@/store'
 import { useEffect, useState } from 'react'
 import { codeToHtml } from 'shiki'
+import { useUiState } from '@/store'
 
 interface CodeComparisonProps {
   beforeCode: string
@@ -22,12 +22,12 @@ export default function CodeComparison({
   lightTheme,
   darkTheme,
 }: CodeComparisonProps) {
-  const _dark = useUiState((st) => st.dark)
+  const isDark = useUiState((st) => st.isDark)
   const [highlightedBefore, setHighlightedBefore] = useState('')
   const [highlightedAfter, setHighlightedAfter] = useState('')
 
   useEffect(() => {
-    const selectedTheme = _dark ? darkTheme : lightTheme
+    const selectedTheme = isDark ? darkTheme : lightTheme
 
     async function highlightCode() {
       const before = await codeToHtml(beforeCode, {
@@ -43,7 +43,7 @@ export default function CodeComparison({
     }
 
     highlightCode()
-  }, [_dark, beforeCode, afterCode, language, lightTheme, darkTheme])
+  }, [isDark, beforeCode, afterCode, language, lightTheme, darkTheme])
 
   const renderCode = (code: string, highlighted: string) => {
     if (highlighted) {
@@ -53,13 +53,12 @@ export default function CodeComparison({
           dangerouslySetInnerHTML={{ __html: highlighted }}
         />
       )
-    } else {
-      return (
-        <pre className='font-mono h-full overflow-auto break-all bg-background p-4 text-xs text-foreground'>
-          {code}
-        </pre>
-      )
     }
+    return (
+      <pre className='font-mono h-full overflow-auto break-all bg-background p-4 text-xs text-foreground'>
+        {code}
+      </pre>
+    )
   }
   return (
     <div className='mx-auto w-full max-w-5xl'>

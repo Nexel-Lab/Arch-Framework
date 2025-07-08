@@ -20,9 +20,9 @@ export enum LANG {
 }
 
 export interface IUiState {
-  dark: boolean
-  setDark: (dark: boolean) => void
-  onToggleDark: () => void
+  isDark: boolean
+  setIsDark: (dark: boolean) => void
+  onToggleIsDark: () => void
   lang: LANG
   setLang: (lang: LANG) => void
   modal: MODAL | undefined

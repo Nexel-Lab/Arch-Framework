@@ -13,7 +13,7 @@ fi
 currentDate=$(date +%Y%m%d)
 outputFile="${projectName}_${currentDate}.7z"
 sourceDir=$(pwd)
-wslDir="$HOME/Celestia-$projectName"
+wslDir="$HOME/Arch-$projectName"
 
 # Clean up
 echo "### Cleaning project..."
