@@ -1,2 +1,2 @@
-export * as SERVICES from './services'
-export * as SCHEMA from './schema'
+export { dropEmailSchema } from './schema'
+export { dropEmail } from './services'

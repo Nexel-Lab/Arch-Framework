@@ -1,7 +1,12 @@
+import {
+  signin,
+  signinSchema,
+  signup,
+  signupSchema,
+} from '@backend/modules/user/portal'
 import { createTRPCRouter, p } from '@backend/trpc'
-import { SERVICES, SCHEMA } from '@backend/modules/user/portal'
 
 export const userPortalRouter = createTRPCRouter({
-  signin: p.publicProcedure.input(SCHEMA.signinSchema).mutation(SERVICES.signin),
-  signup: p.publicProcedure.input(SCHEMA.signupSchema).mutation(SERVICES.signup),
+  signin: p.publicProcedure.input(signinSchema).mutation(signin),
+  signup: p.publicProcedure.input(signupSchema).mutation(signup),
 })

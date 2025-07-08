@@ -1,7 +1,7 @@
 import { createTRPCRouter } from '../trpc'
+import { contactRouter } from './contact'
 import { debuggerRouter } from './debugger'
 import { userRouter } from './user'
-import { contactRouter } from './contact'
 
 /** Define your tRPC routes here */
 

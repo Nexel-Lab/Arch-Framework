@@ -1,11 +1,21 @@
+import {
+  getProfileByUsername,
+  updateUserEmail,
+  updateUserEmailSchema,
+  updateUserProfile,
+  updateUserProfileSchema,
+  usernameSchema,
+} from '@backend/modules/user/profile'
 import { createTRPCRouter, p } from '@backend/trpc'
-import { SERVICES, SCHEMA } from '@backend/modules/user/profile'
 
 export const userProfileRouter = createTRPCRouter({
   getProfileByUsername: p.publicProcedure
-    .input(SCHEMA.usernameSchema)
-    .query(SERVICES.getProfileByUsername),
+    .input(usernameSchema)
+    .query(getProfileByUsername),
   updateUserProfile: p.protectedProcedure
-    .input(SCHEMA.updateUserProfileSchema)
-    .mutation(SERVICES.updateUserProfile),
+    .input(updateUserProfileSchema)
+    .mutation(updateUserProfile),
+  updateUserEmail: p.protectedProcedure
+    .input(updateUserEmailSchema)
+    .mutation(updateUserEmail),
 })

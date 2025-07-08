@@ -1,16 +1,14 @@
 import { app } from './app'
-import { metadata } from './meta'
 import { contacts } from './contacts'
-import { theme } from './theme'
+import { metadata } from './meta'
 import { viewport } from './viewport'
 
 const config = {
   app,
-  theme,
   metadata,
   viewport,
   contacts,
 }
 
-export { metadata, contacts, app, theme, viewport }
+export { metadata, contacts, app, viewport }
 export default config
