@@ -15,9 +15,9 @@ type AppPropsWithSlot = {
 export const App = ({ children, session }: AppPropsWithSlot) => {
   const pathname = usePathname()
   if (
-    pathname.includes('/debug') ||
-    pathname.includes('/test') ||
-    pathname.includes('/welcome')
+    pathname.includes('/welcome') ||
+    pathname.includes('/sso') ||
+    pathname.includes('/debug')
   ) {
     return children
   }
