@@ -1,3 +1,3 @@
-export { SignInEmail } from './signIn.email'
-export { SignInProviders } from './signIn.providers'
-export { SignUpEmail } from './signUp.email'
+export { SignInArch } from './SignIn.arch.db'
+export { SignUpArch } from './SignUp.arch'
+export { SignInProviders } from './SignIn.providers'

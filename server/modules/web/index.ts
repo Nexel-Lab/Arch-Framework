@@ -1,0 +1,1 @@
+export { webRouter } from './controller'

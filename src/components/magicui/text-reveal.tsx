@@ -1,9 +1,13 @@
 'use client'
 
-import { motion, MotionValue, useScroll, useTransform } from 'motion/react'
-import { ComponentPropsWithoutRef, FC, ReactNode, useRef } from 'react'
-
-import { cn } from '@/libs/styles'
+import { type MotionValue, motion, useScroll, useTransform } from 'motion/react'
+import {
+  type ComponentPropsWithoutRef,
+  type FC,
+  type ReactNode,
+  useRef,
+} from 'react'
+import { cn } from '#core/utils/styles'
 
 export interface TextRevealProps extends ComponentPropsWithoutRef<'div'> {
   text: string
@@ -18,17 +22,17 @@ export const TextReveal: FC<TextRevealProps> = ({ text, className }) => {
   const words = text.split(' ')
 
   return (
-    <div ref={targetRef} className={cn('relative z-0 h-[200vh]', className)}>
+    <div className={cn('relative z-0 h-[200vh]', className)} ref={targetRef}>
       <div
         className={
           'sticky top-0 mx-auto flex h-[50%] max-w-4xl items-center bg-transparent px-[1rem] py-[5rem]'
         }
       >
         <p
-          ref={targetRef}
           className={
             'flex flex-wrap p-5 text-2xl font-bold text-black/20 md:p-8 md:text-3xl lg:p-10 lg:text-4xl xl:text-5xl dark:text-white/20'
           }
+          ref={targetRef}
         >
           {words.map((word, i) => {
             const start = i / words.length
@@ -57,8 +61,8 @@ const Word: FC<WordProps> = ({ children, progress, range }) => {
     <span className='xl:lg-3 relative mx-1 lg:mx-2.5'>
       <span className={'absolute opacity-30'}>{children}</span>
       <motion.span
-        style={{ opacity: opacity }}
         className={'text-black dark:text-white'}
+        style={{ opacity: opacity }}
       >
         {children}
       </motion.span>

@@ -3,7 +3,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { FaPlay } from 'react-icons/fa6'
-import { cn } from '@/libs/styles'
+import { cn } from '#core/utils/styles'
 import type { VideoProps } from './_header'
 import { STATUS } from './_header'
 import { vimeoUrlToId } from './vimeo.urlToId'
@@ -109,6 +109,7 @@ const Vimeo: React.FC<VideoProps> = ({
         <button
           className='absolute inset-0 top-0 left-0 flex h-full w-full items-center justify-center bg-opacity-40 transition-opacity hover:bg-opacity-50'
           onClick={() => setStatus(STATUS.LOADING)}
+          title='play video'
         >
           <div className='flex h-16 w-16 items-center justify-center rounded-full bg-foreground/20 bg-opacity-80 p-4'>
             <FaPlay className='h-full w-full' />
@@ -119,6 +120,7 @@ const Vimeo: React.FC<VideoProps> = ({
         <button
           className='absolute inset-0 top-0 left-0 flex h-full w-full items-center justify-center bg-opacity-40 transition-opacity hover:bg-opacity-50'
           onClick={togglePlay}
+          title={isPlaying ? 'pause video' : 'play video'}
         />
       )}
     </div>

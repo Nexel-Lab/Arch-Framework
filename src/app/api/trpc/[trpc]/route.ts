@@ -1,5 +1,5 @@
-import { router } from '@backend/controllers'
-import { createTRPCContext } from '@backend/trpc/trpc.context'
+import { router } from '@server/interfaces/trpc'
+import { createTRPCContext } from '@server/plugins/trpc/trpc.context'
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 
 const handler = (request: Request) => {

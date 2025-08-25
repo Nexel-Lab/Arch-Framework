@@ -5,12 +5,12 @@ import { useEffect, useRef } from 'react'
 import { useShallow } from 'zustand/shallow'
 import { useOnClickOutside } from '#core/hooks/events'
 import { useLockedBody } from '#core/hooks/layouts'
-import { MODAL, useUiState } from '@/store'
+import { MODAL, useUiStore } from '@/store'
 import { SomethingModal } from './modal.something'
 // import { SomethingModal } from './modal.something'
 
 export const Modal = () => {
-  const [modal, onClearModal] = useUiState(
+  const [modal, onClearModal] = useUiStore(
     useShallow((st) => [st.modal, st.onClearModal]),
   )
 

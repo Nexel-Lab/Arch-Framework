@@ -1,9 +1,8 @@
 'use client'
 
-import { AnimatePresence, motion, MotionProps } from 'motion/react'
+import { AnimatePresence, type MotionProps, motion } from 'motion/react'
 import { useEffect, useState } from 'react'
-
-import { cn } from '@/libs/styles'
+import { cn } from '#core/utils/styles'
 
 interface WordRotateProps {
   words: string[]
@@ -38,8 +37,8 @@ export function WordRotate({
     <div className='overflow-hidden py-2'>
       <AnimatePresence mode='wait'>
         <motion.h1
-          key={words[index]}
           className={cn(className)}
+          key={words[index]}
           {...motionProps}
         >
           {words[index]}

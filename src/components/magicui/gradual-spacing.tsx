@@ -1,8 +1,7 @@
 'use client'
 
-import { AnimatePresence, motion, Variants } from 'framer-motion'
-
-import { cn } from '@/libs/styles'
+import { AnimatePresence, motion, type Variants } from 'framer-motion'
+import { cn } from '#core/utils/styles'
 
 interface GradualSpacingProps {
   text: string
@@ -27,13 +26,13 @@ export default function GradualSpacing({
       <AnimatePresence>
         {text.split('').map((char, i) => (
           <motion.h1
-            key={i}
-            initial='hidden'
             animate='visible'
-            exit='hidden'
-            variants={framerProps}
-            transition={{ duration, delay: i * delayMultiple }}
             className={cn('drop-shadow-xs', className)}
+            exit='hidden'
+            initial='hidden'
+            key={i}
+            transition={{ duration, delay: i * delayMultiple }}
+            variants={framerProps}
           >
             {char === ' ' ? <span>&nbsp;</span> : char}
           </motion.h1>

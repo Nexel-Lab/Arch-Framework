@@ -1,5 +1,5 @@
-import { getSession } from '@backend/auth'
 import { env } from '@env'
+import { getSession } from '@server/plugins/auth'
 import { jwtVerify } from 'jose'
 import { redirect } from 'next/navigation'
 import { Client } from './page.client'

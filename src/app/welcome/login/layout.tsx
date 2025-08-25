@@ -1,6 +1,6 @@
 'use client'
 
-import { trpc } from '@backend/trpc/client'
+import { trpc } from '@trpc'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 

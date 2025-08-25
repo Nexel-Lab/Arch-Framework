@@ -1,8 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-
-import { cn } from '@/libs/styles'
+import { cn } from '#core/utils/styles'
 
 interface MeteorsProps {
   number?: number
@@ -27,10 +26,10 @@ export const Meteors = ({ number = 20 }: MeteorsProps) => {
       {[...meteorStyles].map((style, idx) => (
         // Meteor Head
         <span
-          key={idx}
           className={cn(
             'animate-meteor pointer-events-none absolute top-1/2 left-1/2 size-0.5 rotate-[215deg] rounded-full bg-slate-500 shadow-[0_0_0_1px_#ffffff10]',
           )}
+          key={idx}
           style={style}
         >
           {/* Meteor Tail */}

@@ -1,9 +1,9 @@
 'use client'
 
 import { motion, useMotionTemplate, useMotionValue } from 'motion/react'
-import React, { useCallback, useEffect, useRef } from 'react'
-
-import { cn } from '@/libs/styles'
+import type React from 'react'
+import { useCallback, useEffect, useRef } from 'react'
+import { cn } from '#core/utils/styles'
 
 interface MagicCardProps extends React.HTMLAttributes<HTMLDivElement> {
   gradientSize?: number
@@ -79,8 +79,8 @@ export function MagicCard({
 
   return (
     <div
-      ref={cardRef}
       className={cn('group relative flex size-full rounded-xl', className)}
+      ref={cardRef}
     >
       <div
         className={cn(

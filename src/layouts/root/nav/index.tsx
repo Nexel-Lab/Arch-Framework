@@ -2,10 +2,10 @@
 
 import { useShallow } from 'zustand/shallow'
 import { Moon, Sun } from '#core/assets/icons'
-import { useUiState } from '@/store'
+import { useUiStore } from '@/store'
 
 const Nav = () => {
-  const [isDark, setIsDark] = useUiState(
+  const [isDark, setIsDark] = useUiStore(
     useShallow((st) => [st.isDark, st.setIsDark]),
   )
   return (

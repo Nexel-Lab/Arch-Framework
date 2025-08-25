@@ -1,5 +1,5 @@
-import { log, withAxiom } from '@/libs/logger'
-import { LOG_LEVEL } from '@/libs/logger/_h'
+import { LOG_LEVEL } from '#core/logger/axiom/_h'
+import { log, withAxiom } from '#core/logger/axiom/server'
 
 export const POST = withAxiom(async (req) => {
   const body = await req.json()

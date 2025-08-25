@@ -5,7 +5,7 @@ import type { Session } from 'next-auth'
 import { signIn, signOut } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { Loading } from '@/components/templates'
-import { useUserState } from '@/store'
+import { useUserStore } from '@/store'
 
 export const Client = ({
   email,
@@ -17,7 +17,7 @@ export const Client = ({
   const [loading, setLoading] = useState(true)
   const [errMsg, setErrMsg] = useState<string | undefined>(undefined)
   const router = useRouter()
-  const setUser = useUserState((st) => st.setUser)
+  const setUser = useUserStore((st) => st.setUser)
 
   useEffect(() => {
     if (session) {

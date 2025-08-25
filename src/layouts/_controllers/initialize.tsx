@@ -1,11 +1,11 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useAppState } from '@/store'
+import { useAppStore } from '@/store'
 import Console from './initialize.console'
 
 export const Initialize = () => {
-  const _onAppInit = useAppState((st) => st.onAppInit)
+  const _onAppInit = useAppStore((st) => st.onAppInit)
 
   useEffect(() => {
     console.log(Console)

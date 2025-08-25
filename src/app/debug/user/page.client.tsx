@@ -7,7 +7,7 @@ import type { Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
-import { ChangeEmailModal } from './modal.changeEmail'
+import { ChangeEmailModal } from './ChangeEmailModal'
 
 export const Client = ({ session }: { session: Session }) => {
   const router = useRouter()

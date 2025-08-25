@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/correctness/useHookAtTopLevel: <for performance purposes> */
 'use client'
 
-import { trpc } from '@backend/trpc/client'
+import { trpc } from '@trpc'
 import { redirect, usePathname } from 'next/navigation'
 import type { Session } from 'next-auth'
 import { useEffect, useState } from 'react'
@@ -17,6 +17,7 @@ export const App = ({ children, session }: AppPropsWithSlot) => {
   if (
     pathname.includes('/welcome') ||
     pathname.includes('/sso') ||
+    pathname.includes('/portal') ||
     pathname.includes('/debug')
   ) {
     return children

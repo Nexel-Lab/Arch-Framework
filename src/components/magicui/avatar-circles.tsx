@@ -1,8 +1,7 @@
 'use client'
 
 import React from 'react'
-
-import { cn } from '@/libs/styles'
+import { cn } from '#core/utils/styles'
 
 interface AvatarCirclesProps {
   className?: string
@@ -19,12 +18,12 @@ const AvatarCircles = ({
     <div className={cn('z-10 flex -space-x-4 rtl:space-x-reverse', className)}>
       {avatarUrls.map((url, index) => (
         <img
-          key={index}
+          alt={`Avatar ${index + 1}`}
           className='h-10 w-10 rounded-full border-2 border-white dark:border-gray-800'
+          height={40}
+          key={index}
           src={url}
           width={40}
-          height={40}
-          alt={`Avatar ${index + 1}`}
         />
       ))}
       <a

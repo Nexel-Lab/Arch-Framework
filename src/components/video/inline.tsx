@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { cn } from '@/libs/styles'
+import { cn } from '#core/utils/styles'
 
 interface VideoInlineProps {
   videoUrl: string

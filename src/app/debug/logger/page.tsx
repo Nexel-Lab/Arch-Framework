@@ -1,6 +1,5 @@
-// import { Axiom } from './axiom'
-
-// import { Sentry } from './sentry'
+// import { Axiom } from './Axiom'
+// import { Sentry } from './Sentry'
 
 const Page = () => {
   return (

@@ -4,8 +4,8 @@ import { app } from '@config'
 import { ExternalLink } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
+import { cn } from '#core/utils/styles'
 import { RootLayout } from '@/layouts'
-import { cn } from '@/libs'
 
 const technologies = [
   {

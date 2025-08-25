@@ -1,5 +1,5 @@
+import { trpcCaller } from '@server/interfaces/trpc'
 import { NextResponse } from 'next/server'
-import { trpcCaller } from '@backend/trpc'
 
 export const dynamic = 'force-dynamic'
 

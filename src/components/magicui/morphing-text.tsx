@@ -1,8 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef } from 'react'
-
-import { cn } from '@/libs/styles'
+import { cn } from '#core/utils/styles'
 
 const morphTime = 1.5
 const cooldownTime = 0.5
@@ -22,11 +21,11 @@ const useMorphingText = (texts: string[]) => {
       if (!current1 || !current2) return
 
       current2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`
-      current2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`
+      current2.style.opacity = `${fraction ** 0.4 * 100}%`
 
       const invertedFraction = 1 - fraction
       current1.style.filter = `blur(${Math.min(8 / invertedFraction - 8, 100)}px)`
-      current1.style.opacity = `${Math.pow(invertedFraction, 0.4) * 100}%`
+      current1.style.opacity = `${invertedFraction ** 0.4 * 100}%`
 
       current1.textContent = texts[textIndexRef.current % texts.length]
       current2.textContent = texts[(textIndexRef.current + 1) % texts.length]
@@ -111,8 +110,8 @@ const Texts: React.FC<Pick<MorphingTextProps, 'texts'>> = ({ texts }) => {
 
 const SvgFilters: React.FC = () => (
   <svg
-    id='filters'
     className='fixed h-0 w-0'
+    id='filters'
     preserveAspectRatio='xMidYMid slice'
   >
     <defs>

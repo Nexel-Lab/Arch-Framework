@@ -1,15 +1,15 @@
 /* eslint-disable prettier/prettier */
 
-import { getSession } from '@backend/auth'
 import { env } from '@env'
 import { GoogleTagManager } from '@next/third-parties/google'
+import { getSession } from '@server/plugins/auth'
 import type { AppProps } from 'next/app'
 import { Inter, Prompt } from 'next/font/google'
+import { cn } from '#core/utils/styles'
 import { Wrapper } from '@/layouts/wrapper'
-import { cn } from '@/libs/styles'
 import { App } from './layout.app'
 
-import './global.scss'
+import './globals.scss'
 
 export { metadata, viewport } from '@config'
 
@@ -32,7 +32,6 @@ type AppPropsWithLayout = AppProps & {
 
 const Layout = async ({ children }: AppPropsWithLayout) => {
   const session = await getSession()
-  console.log({ session })
   return (
     <html
       className={cn(fInter.className, `${fInter.variable} ${fPrompt.variable}`)}

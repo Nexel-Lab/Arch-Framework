@@ -1,8 +1,8 @@
 'use client'
 
-import { cn } from '@/libs/styles'
-import { motion, MotionProps } from 'motion/react'
+import { type MotionProps, motion } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
+import { cn } from '#core/utils/styles'
 
 interface AnimatedSpanProps extends MotionProps {
   children: React.ReactNode
@@ -17,10 +17,10 @@ export const AnimatedSpan = ({
   ...props
 }: AnimatedSpanProps) => (
   <motion.div
-    initial={{ opacity: 0, y: -5 }}
     animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.3, delay: delay / 1000 }}
     className={cn('grid text-sm font-normal tracking-tight', className)}
+    initial={{ opacity: 0, y: -5 }}
+    transition={{ duration: 0.3, delay: delay / 1000 }}
     {...props}
   >
     {children}
@@ -82,8 +82,8 @@ export const TypingAnimation = ({
 
   return (
     <MotionComponent
-      ref={elementRef}
       className={cn('text-sm font-normal tracking-tight', className)}
+      ref={elementRef}
       {...props}
     >
       {displayedText}

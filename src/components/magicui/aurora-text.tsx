@@ -1,6 +1,6 @@
-import { cn } from '@/libs/styles'
-import { motion, MotionProps } from 'motion/react'
-import React from 'react'
+import { type MotionProps, motion } from 'motion/react'
+import type React from 'react'
+import { cn } from '#core/utils/styles'
 
 interface AuroraTextProps
   extends Omit<React.HTMLAttributes<HTMLElement>, keyof MotionProps> {

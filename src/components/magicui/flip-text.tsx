@@ -1,8 +1,7 @@
 'use client'
 
-import { AnimatePresence, motion, Variants } from 'motion/react'
-
-import { cn } from '@/libs/styles'
+import { AnimatePresence, motion, type Variants } from 'motion/react'
+import { cn } from '#core/utils/styles'
 
 interface FlipTextProps {
   word: string
@@ -27,13 +26,13 @@ export function FlipText({
       <AnimatePresence mode='wait'>
         {word.split('').map((char, i) => (
           <motion.span
-            key={i}
-            initial='hidden'
             animate='visible'
-            exit='hidden'
-            variants={framerProps}
-            transition={{ duration, delay: i * delayMultiple }}
             className={cn('origin-center drop-shadow-xs', className)}
+            exit='hidden'
+            initial='hidden'
+            key={i}
+            transition={{ duration, delay: i * delayMultiple }}
+            variants={framerProps}
           >
             {char}
           </motion.span>

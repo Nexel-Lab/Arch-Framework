@@ -1,10 +1,10 @@
 'use client'
 
 import { useEffect } from 'react'
-import { MODAL, useUiState } from '@/store'
+import { MODAL, useUiStore } from '@/store'
 
 const KeyboardController = () => {
-  const onToggleModal = useUiState((st) => st.onToggleModal)
+  const onToggleModal = useUiStore((st) => st.onToggleModal)
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {

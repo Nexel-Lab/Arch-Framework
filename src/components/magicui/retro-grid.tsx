@@ -1,4 +1,4 @@
-import { cn } from '@/libs/styles'
+import { cn } from '#core/utils/styles'
 
 export default function RetroGrid({ className }: { className?: string }) {
   return (
