@@ -3,7 +3,7 @@ import type { IUiState } from './uiState'
 import { LANG } from './uiState'
 
 /** Global store is here **/
-export const useUiState = create<IUiState>((set, get) => ({
+export const useUiStore = create<IUiState>((set, get) => ({
   isDark: true,
   setIsDark: (dark) => set(() => ({ isDark: dark })),
   onToggleIsDark: () => set({ isDark: !get().isDark }),

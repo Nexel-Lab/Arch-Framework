@@ -1,8 +1,13 @@
 'use client'
 
-import { cn } from '@/libs/styles'
-import { AnimatePresence, motion, MotionProps, Variants } from 'motion/react'
-import { ElementType } from 'react'
+import {
+  AnimatePresence,
+  type MotionProps,
+  motion,
+  type Variants,
+} from 'motion/react'
+import type { ElementType } from 'react'
+import { cn } from '#core/utils/styles'
 
 type AnimationType = 'text' | 'word' | 'character' | 'line'
 type AnimationVariant =
@@ -359,23 +364,23 @@ export function TextAnimate({
   return (
     <AnimatePresence mode='popLayout'>
       <MotionComponent
-        variants={finalVariants.container}
-        initial='hidden'
-        whileInView={startOnView ? 'show' : undefined}
         animate={startOnView ? undefined : 'show'}
-        exit='exit'
         className={cn('whitespace-pre-wrap', className)}
+        exit='exit'
+        initial='hidden'
+        variants={finalVariants.container}
+        whileInView={startOnView ? 'show' : undefined}
         {...props}
       >
         {segments.map((segment, i) => (
           <motion.span
-            key={`${by}-${segment}-${i}`}
-            variants={finalVariants.item}
-            custom={i * staggerTimings[by]}
             className={cn(
               by === 'line' ? 'block' : 'inline-block whitespace-pre',
               segmentClassName,
             )}
+            custom={i * staggerTimings[by]}
+            key={`${by}-${segment}-${i}`}
+            variants={finalVariants.item}
           >
             {segment}
           </motion.span>

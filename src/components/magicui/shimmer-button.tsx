@@ -1,6 +1,5 @@
-import React, { CSSProperties, ComponentPropsWithoutRef } from 'react'
-
-import { cn } from '@/libs/styles'
+import React, { type ComponentPropsWithoutRef, type CSSProperties } from 'react'
+import { cn } from '#core/utils/styles'
 
 export interface ShimmerButtonProps extends ComponentPropsWithoutRef<'button'> {
   shimmerColor?: string
@@ -31,6 +30,12 @@ export const ShimmerButton = React.forwardRef<
   ) => {
     return (
       <button
+        className={cn(
+          'group relative z-0 flex cursor-pointer items-center justify-center overflow-hidden [border-radius:var(--radius)] border border-white/10 px-6 py-3 whitespace-nowrap text-white [background:var(--bg)] dark:text-black',
+          'transform-gpu transition-transform duration-300 ease-in-out active:translate-y-px',
+          className,
+        )}
+        ref={ref}
         style={
           {
             '--spread': '90deg',
@@ -41,12 +46,6 @@ export const ShimmerButton = React.forwardRef<
             '--bg': background,
           } as CSSProperties
         }
-        className={cn(
-          'group relative z-0 flex cursor-pointer items-center justify-center overflow-hidden [border-radius:var(--radius)] border border-white/10 px-6 py-3 whitespace-nowrap text-white [background:var(--bg)] dark:text-black',
-          'transform-gpu transition-transform duration-300 ease-in-out active:translate-y-px',
-          className,
-        )}
-        ref={ref}
         {...props}
       >
         {/* spark container */}

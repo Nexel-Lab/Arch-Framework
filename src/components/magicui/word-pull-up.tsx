@@ -1,8 +1,7 @@
 'use client'
 
-import { motion, Variants } from 'framer-motion'
-
-import { cn } from '@/libs/styles'
+import { motion, type Variants } from 'framer-motion'
+import { cn } from '#core/utils/styles'
 
 interface WordPullUpProps {
   words: string
@@ -31,19 +30,19 @@ export default function WordPullUp({
 }: WordPullUpProps) {
   return (
     <motion.h1
-      variants={wrapperFramerProps}
-      initial='hidden'
       animate='show'
       className={cn(
         'font-display text-center text-4xl leading-[5rem] font-bold tracking-[-0.02em] drop-shadow-xs',
         className,
       )}
+      initial='hidden'
+      variants={wrapperFramerProps}
     >
       {words.split(' ').map((word, i) => (
         <motion.span
           key={i}
-          variants={framerProps}
           style={{ display: 'inline-block', paddingRight: '8px' }}
+          variants={framerProps}
         >
           {word === '' ? <span>&nbsp;</span> : word}
         </motion.span>

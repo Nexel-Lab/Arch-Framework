@@ -29,10 +29,10 @@ The _"ARCH FRAMEWORK"_ is a modern web development stack made by [TheIceJi](http
 
 ## ⚠️ Note!
 
-- S3 is turned off by default to avoid errors when creating an S3 client without environment variables. Enable it by uncommenting the relevant lines in `backend/trpc/trpc.context.ts` and `backend/trpc/trpc.caller.ts`.
+- S3 is turned off by default to avoid errors when creating an S3 client without environment variables. Enable it by uncommenting the relevant lines in `server/plugins/trpc/trpc.context.ts` and `server/interfaces/trpc/trpc.caller.ts`.
 - Frontend pages live in `src/app`.
 - The `global` directory contains store, environment config, and general app settings.
-- All backend logic resides in the `backend` folder.
+- All backend logic resides in the `server` folder, connect with NextJs by tRPC interface.
 
 ---
 
@@ -74,23 +74,23 @@ The _"ARCH FRAMEWORK"_ is a modern web development stack made by [TheIceJi](http
 
 - Install dependencies:
   ```bash
-  pnpm install
+  bun install
   # or
   yarn install
   ```
 
 - Generate database client:
   ```bash
-  pnpm db:generate:none
+  bun db:gen
   # or
-  yarn yarn:pre:db
+  yarn db:gen
   ```
 
 - (Recommended) Install the **Todo Tree** VSCode extension to track areas needing updates.
 
 - Start the development server:
   ```bash
-  pnpm dev
+  bun dev
   # or
   yarn dev
   ```
@@ -99,7 +99,7 @@ The _"ARCH FRAMEWORK"_ is a modern web development stack made by [TheIceJi](http
 ### 📆 Production Deployment
 
 ```bash
-pnpm deploy
+bun deploy
 # or
 yarn yarn:deploy
 ```
@@ -118,6 +118,6 @@ yarn yarn:deploy
    - `src/layouts/_controllers/controllers.tsx` → Global UI controllers
 
 3. Optional:
-   - Update `global/env.mjs` after adding/removing packages or modules
+   - Update `global/env.ts` after adding/removing packages or modules
    - Enable S3 in the tRPC context
 

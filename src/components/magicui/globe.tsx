@@ -1,10 +1,9 @@
 'use client'
 
+import createGlobe, { type COBEOptions } from 'cobe'
 import { useCallback, useEffect, useRef } from 'react'
-import createGlobe, { COBEOptions } from 'cobe'
 import { useSpring } from 'react-spring'
-
-import { cn } from '@/libs/styles'
+import { cn } from '#core/utils/styles'
 
 const GLOBE_CONFIG: COBEOptions = {
   width: 800,
@@ -111,18 +110,18 @@ export default function Globe({
         className={cn(
           'h-full w-full opacity-0 transition-opacity duration-500 [contain:layout_paint_size]',
         )}
-        ref={canvasRef}
+        onMouseMove={(e) => updateMovement(e.clientX)}
         onPointerDown={(e) =>
           updatePointerInteraction(
             e.clientX - pointerInteractionMovement.current,
           )
         }
-        onPointerUp={() => updatePointerInteraction(null)}
         onPointerOut={() => updatePointerInteraction(null)}
-        onMouseMove={(e) => updateMovement(e.clientX)}
+        onPointerUp={() => updatePointerInteraction(null)}
         onTouchMove={(e) =>
           e.touches[0] && updateMovement(e.touches[0].clientX)
         }
+        ref={canvasRef}
       />
     </div>
   )

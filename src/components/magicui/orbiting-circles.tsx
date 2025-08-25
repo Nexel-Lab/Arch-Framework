@@ -1,4 +1,4 @@
-import { cn } from '@/libs/styles'
+import { cn } from '#core/utils/styles'
 
 export interface OrbitingCirclesProps {
   className?: string
@@ -23,21 +23,26 @@ export default function OrbitingCircles({
     <>
       {path && (
         <svg
-          xmlns='http://www.w3.org/2000/svg'
-          version='1.1'
           className='pointer-events-none absolute inset-0 size-full'
+          version='1.1'
+          xmlns='http://www.w3.org/2000/svg'
         >
           <circle
             className='stroke-black/10 stroke-1 dark:stroke-white/10'
             cx='50%'
             cy='50%'
-            r={radius}
             fill='none'
+            r={radius}
           />
         </svg>
       )}
 
       <div
+        className={cn(
+          'animate-orbit absolute flex size-full transform-gpu items-center justify-center rounded-full border bg-black/10 [animation-delay:calc(var(--delay)*1000ms)] dark:bg-white/10',
+          { '[animation-direction:reverse]': reverse },
+          className,
+        )}
         style={
           {
             '--duration': duration,
@@ -45,11 +50,6 @@ export default function OrbitingCircles({
             '--delay': -delay,
           } as React.CSSProperties
         }
-        className={cn(
-          'animate-orbit absolute flex size-full transform-gpu items-center justify-center rounded-full border bg-black/10 [animation-delay:calc(var(--delay)*1000ms)] dark:bg-white/10',
-          { '[animation-direction:reverse]': reverse },
-          className,
-        )}
       >
         {children}
       </div>

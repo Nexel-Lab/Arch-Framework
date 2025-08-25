@@ -3,7 +3,7 @@
 import { FileIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { codeToHtml } from 'shiki'
-import { useUiState } from '@/store'
+import { useUiStore } from '@/store'
 
 interface CodeComparisonProps {
   beforeCode: string
@@ -22,7 +22,7 @@ export default function CodeComparison({
   lightTheme,
   darkTheme,
 }: CodeComparisonProps) {
-  const isDark = useUiState((st) => st.isDark)
+  const isDark = useUiStore((st) => st.isDark)
   const [highlightedBefore, setHighlightedBefore] = useState('')
   const [highlightedAfter, setHighlightedAfter] = useState('')
 

@@ -1,4 +1,4 @@
-import { getSession } from '@backend/auth'
+import { getSession } from '@server/plugins/auth'
 import { Client } from './page.client'
 
 const Page = async () => {

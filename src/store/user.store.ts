@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import type { IUserState } from './userState'
 
-export const useUserState = create<IUserState>((set) => ({
+export const useUserStore = create<IUserState>((set) => ({
   user: undefined,
   setUser: (user) => {
     if (typeof window !== 'undefined') {

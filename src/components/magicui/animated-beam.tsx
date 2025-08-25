@@ -1,9 +1,8 @@
 'use client'
 
-import { RefObject, useEffect, useId, useState } from 'react'
 import { motion } from 'framer-motion'
-
-import { cn } from '@/libs/styles'
+import { type RefObject, useEffect, useId, useState } from 'react'
+import { cn } from '#core/utils/styles'
 
 export interface AnimatedBeamProps {
   className?: string
@@ -94,7 +93,7 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
     // Initialize ResizeObserver
     const resizeObserver = new ResizeObserver((entries) => {
       // For all entries, recalculate the path
-      for (let entry of entries) {
+      for (const entry of entries) {
         updatePath()
       }
     })
@@ -124,46 +123,46 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
 
   return (
     <svg
-      fill='none'
-      width={svgDimensions.width}
-      height={svgDimensions.height}
-      xmlns='http://www.w3.org/2000/svg'
       className={cn(
         'pointer-events-none absolute top-0 left-0 transform-gpu stroke-2',
         className,
       )}
+      fill='none'
+      height={svgDimensions.height}
       viewBox={`0 0 ${svgDimensions.width} ${svgDimensions.height}`}
+      width={svgDimensions.width}
+      xmlns='http://www.w3.org/2000/svg'
     >
       <path
         d={pathD}
         stroke={pathColor}
-        strokeWidth={pathWidth}
-        strokeOpacity={pathOpacity}
         strokeLinecap='round'
+        strokeOpacity={pathOpacity}
+        strokeWidth={pathWidth}
       />
       <path
         d={pathD}
-        strokeWidth={pathWidth}
         stroke={`url(#${id})`}
-        strokeOpacity='1'
         strokeLinecap='round'
+        strokeOpacity='1'
+        strokeWidth={pathWidth}
       />
       <defs>
         <motion.linearGradient
-          className='transform-gpu'
-          id={id}
-          gradientUnits={'userSpaceOnUse'}
-          initial={{
-            x1: '0%',
-            x2: '0%',
-            y1: '0%',
-            y2: '0%',
-          }}
           animate={{
             x1: gradientCoordinates.x1,
             x2: gradientCoordinates.x2,
             y1: gradientCoordinates.y1,
             y2: gradientCoordinates.y2,
+          }}
+          className='transform-gpu'
+          gradientUnits={'userSpaceOnUse'}
+          id={id}
+          initial={{
+            x1: '0%',
+            x2: '0%',
+            y1: '0%',
+            y2: '0%',
           }}
           transition={{
             delay,

@@ -1,15 +1,14 @@
 'use client'
 
 import {
-  CSSProperties,
-  ReactElement,
-  ReactNode,
+  type CSSProperties,
+  type ReactElement,
+  type ReactNode,
   useEffect,
   useRef,
   useState,
 } from 'react'
-
-import { cn } from '@/libs/styles'
+import { cn } from '#core/utils/styles'
 
 interface NeonColorsProps {
   firstColor: string
@@ -106,6 +105,10 @@ const NeonGradientCard: React.FC<NeonGradientCardProps> = ({
 
   return (
     <div
+      className={cn(
+        'relative z-10 h-full w-full rounded-[var(--border-radius)]',
+        className,
+      )}
       ref={containerRef}
       style={
         {
@@ -122,10 +125,6 @@ const NeonGradientCard: React.FC<NeonGradientCardProps> = ({
           '--after-blur': `${dimensions.width / 3}px`,
         } as CSSProperties
       }
-      className={cn(
-        'relative z-10 h-full w-full rounded-[var(--border-radius)]',
-        className,
-      )}
       {...props}
     >
       <div

@@ -1,13 +1,12 @@
 import { Suspense } from 'react'
 import {
-  enrichTweet,
   type EnrichedTweet,
+  enrichTweet,
   type TweetProps,
   type TwitterComponents,
 } from 'react-tweet'
 import { getTweet, type Tweet } from 'react-tweet/api'
-
-import { cn } from '@/libs/styles'
+import { cn } from '#core/utils/styles'
 
 interface TwitterIconProps {
   className?: string
@@ -15,18 +14,18 @@ interface TwitterIconProps {
 }
 const Twitter = ({ className, ...props }: TwitterIconProps) => (
   <svg
-    stroke='currentColor'
+    className={className}
     fill='currentColor'
+    height='1em'
+    stroke='currentColor'
     strokeWidth='0'
     viewBox='0 0 24 24'
-    height='1em'
     width='1em'
     xmlns='http://www.w3.org/2000/svg'
-    className={className}
     {...props}
   >
     <g>
-      <path fill='none' d='M0 0h24v24H0z'></path>
+      <path d='M0 0h24v24H0z' fill='none'></path>
       <path d='M22.162 5.656a8.384 8.384 0 0 1-2.402.658A4.196 4.196 0 0 0 21.6 4c-.82.488-1.719.83-2.656 1.015a4.182 4.182 0 0 0-7.126 3.814 11.874 11.874 0 0 1-8.62-4.37 4.168 4.168 0 0 0-.566 2.103c0 1.45.738 2.731 1.86 3.481a4.168 4.168 0 0 1-1.894-.523v.052a4.185 4.185 0 0 0 3.355 4.101 4.21 4.21 0 0 1-1.89.072A4.185 4.185 0 0 0 7.97 16.65a8.394 8.394 0 0 1-6.191 1.732 11.83 11.83 0 0 0 6.41 1.88c7.693 0 11.9-6.373 11.9-11.9 0-.18-.005-.362-.013-.54a8.496 8.496 0 0 0 2.087-2.165z'></path>
     </g>
   </svg>
@@ -35,8 +34,8 @@ const Twitter = ({ className, ...props }: TwitterIconProps) => (
 const Verified = ({ className, ...props }: TwitterIconProps) => (
   <svg
     aria-label='Verified Account'
-    viewBox='0 0 24 24'
     className={className}
+    viewBox='0 0 24 24'
     {...props}
   >
     <g fill='currentColor'>
@@ -105,22 +104,22 @@ export const TweetNotFound = ({
 export const TweetHeader = ({ tweet }: { tweet: EnrichedTweet }) => (
   <div className='flex flex-row justify-between tracking-tight'>
     <div className='flex items-center space-x-2'>
-      <a href={tweet.user.url} target='_blank' rel='noreferrer'>
+      <a href={tweet.user.url} rel='noreferrer' target='_blank'>
         <img
-          title={`Profile picture of ${tweet.user.name}`}
           alt={tweet.user.screen_name}
-          height={48}
-          width={48}
-          src={tweet.user.profile_image_url_https}
           className='overflow-hidden rounded-full border border-transparent'
+          height={48}
+          src={tweet.user.profile_image_url_https}
+          title={`Profile picture of ${tweet.user.name}`}
+          width={48}
         />
       </a>
       <div>
         <a
-          href={tweet.user.url}
-          target='_blank'
-          rel='noreferrer'
           className='flex items-center font-semibold whitespace-nowrap'
+          href={tweet.user.url}
+          rel='noreferrer'
+          target='_blank'
         >
           {truncate(tweet.user.name, 20)}
           {tweet.user.verified ||
@@ -130,17 +129,17 @@ export const TweetHeader = ({ tweet }: { tweet: EnrichedTweet }) => (
         </a>
         <div className='flex items-center space-x-1'>
           <a
-            href={tweet.user.url}
-            target='_blank'
-            rel='noreferrer'
             className='text-sm text-gray-500 transition-all duration-75'
+            href={tweet.user.url}
+            rel='noreferrer'
+            target='_blank'
           >
             @{truncate(tweet.user.screen_name, 16)}
           </a>
         </div>
       </div>
     </div>
-    <a href={tweet.url} target='_blank' rel='noreferrer'>
+    <a href={tweet.url} rel='noreferrer' target='_blank'>
       <span className='sr-only'>Link to tweet</span>
       <Twitter className='h-5 w-5 items-start text-[#3BA9EE] transition-all ease-in-out hover:scale-105' />
     </a>
@@ -157,11 +156,11 @@ export const TweetBody = ({ tweet }: { tweet: EnrichedTweet }) => (
         case 'mention':
           return (
             <a
-              key={idx}
-              href={entity.href}
-              target='_blank'
-              rel='noopener noreferrer'
               className='text-sm font-normal text-gray-500'
+              href={entity.href}
+              key={idx}
+              rel='noopener noreferrer'
+              target='_blank'
             >
               <span>{entity.text}</span>
             </a>
@@ -169,9 +168,9 @@ export const TweetBody = ({ tweet }: { tweet: EnrichedTweet }) => (
         case 'text':
           return (
             <span
-              key={idx}
               className='text-sm font-normal'
               dangerouslySetInnerHTML={{ __html: entity.text }}
+              key={idx}
             />
           )
       }
@@ -183,12 +182,12 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => (
   <div className='flex flex-1 items-center justify-center'>
     {tweet.video && (
       <video
-        poster={tweet.video.poster}
         autoPlay
+        className='rounded-xl border shadow-xs'
         loop
         muted
         playsInline
-        className='rounded-xl border shadow-xs'
+        poster={tweet.video.poster}
       >
         <source src={tweet.video.variants[0].src} type='video/mp4' />
         Your browser does not support the video tag.
@@ -199,11 +198,11 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => (
         <div className='shrink-0 snap-center sm:w-2' />
         {tweet.photos.map((photo) => (
           <img
+            alt={tweet.text}
+            className='h-64 w-5/6 shrink-0 snap-center snap-always rounded-xl border object-cover shadow-xs'
             key={photo.url}
             src={photo.url}
             title={'Photo by ' + tweet.user.name}
-            alt={tweet.text}
-            className='h-64 w-5/6 shrink-0 snap-center snap-always rounded-xl border object-cover shadow-xs'
           />
         ))}
         <div className='shrink-0 snap-center sm:w-2' />
@@ -211,12 +210,12 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => (
     )}
     {!tweet.video &&
       !tweet.photos &&
-      // @ts-ignore
+      // @ts-expect-error
       tweet?.card?.binding_values?.thumbnail_image_large?.image_value.url && (
         <img
-          // @ts-ignore
-          src={tweet.card.binding_values.thumbnail_image_large.image_value.url}
+          // @ts-expect-error
           className='h-64 rounded-xl border object-cover shadow-xs'
+          src={tweet.card.binding_values.thumbnail_image_large.image_value.url}
         />
       )}
   </div>

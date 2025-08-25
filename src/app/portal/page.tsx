@@ -1,13 +1,16 @@
-import { authOptions } from '@backend/auth'
-import { getServerSession } from 'next-auth'
+import { getSession } from '@server/plugins/auth'
 import { getProviders } from 'next-auth/react'
-import { Client } from './page.client'
+import { SignInArch, SignInProviders } from './components'
 
 const Page = async () => {
   const providers = await getProviders()
-  const session = await getServerSession(authOptions)
+  const session = await getSession()
 
-  return <Client providers={providers} session={session} />
+  return (
+    <SignInArch>
+      <SignInProviders providers={providers} session={session} />
+    </SignInArch>
+  )
 }
 
 export default Page

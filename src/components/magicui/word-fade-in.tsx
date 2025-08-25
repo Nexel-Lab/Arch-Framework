@@ -1,8 +1,7 @@
 'use client'
 
-import { motion, Variants } from 'framer-motion'
-
-import { cn } from '@/libs/styles'
+import { motion, type Variants } from 'framer-motion'
+import { cn } from '#core/utils/styles'
 
 interface WordFadeInProps {
   words: string
@@ -28,16 +27,16 @@ export default function WordFadeIn({
 
   return (
     <motion.h1
-      variants={variants}
-      initial='hidden'
       animate='visible'
       className={cn(
         'font-display text-center text-4xl font-bold tracking-[-0.02em] text-black drop-shadow-xs md:text-7xl md:leading-[5rem] dark:text-white',
         className,
       )}
+      initial='hidden'
+      variants={variants}
     >
       {_words.map((word, i) => (
-        <motion.span key={word} variants={variants} custom={i}>
+        <motion.span custom={i} key={word} variants={variants}>
           {word}{' '}
         </motion.span>
       ))}

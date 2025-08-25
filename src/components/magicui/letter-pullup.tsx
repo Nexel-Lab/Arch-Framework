@@ -1,8 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-
-import { cn } from '@/libs/styles'
+import { cn } from '#core/utils/styles'
 
 interface LetterPullupProps {
   className?: string
@@ -32,15 +31,15 @@ export default function LetterPullup({
     <div className='flex justify-center'>
       {letters.map((letter, i) => (
         <motion.h1
-          key={i}
-          variants={pullupVariant}
-          initial='initial'
           animate='animate'
-          custom={i}
           className={cn(
             'font-display text-center text-4xl font-bold tracking-[-0.02em] text-black drop-shadow-xs md:text-4xl md:leading-[5rem] dark:text-white',
             className,
           )}
+          custom={i}
+          initial='initial'
+          key={i}
+          variants={pullupVariant}
         >
           {letter === ' ' ? <span>&nbsp;</span> : letter}
         </motion.h1>

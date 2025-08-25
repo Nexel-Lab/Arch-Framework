@@ -5,19 +5,21 @@ import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
-import { useUserState } from '@/store'
+import { useUserStore } from '@/store'
 
 type FormData = {
   email: string
+  password: string
 }
 
 const Page = () => {
   const router = useRouter()
-  const setUser = useUserState((st) => st.setUser)
+  const setUser = useUserStore((st) => st.setUser)
 
   const [loading, setIsLoading] = useState<boolean>(false)
   const [formData, setFormData] = useState<FormData>({
     email: '',
+    password: '',
   })
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -30,6 +32,7 @@ const Page = () => {
       })
       await signIn('app-login', {
         email: formData.email.toLowerCase(),
+        password: formData.password,
       })
       router.push('/')
     } catch (_e) {
@@ -60,9 +63,23 @@ const Page = () => {
               })
             }
             required
-            title='name'
-            type='text'
+            title='email'
+            type='email'
             value={formData.email}
+          />
+          <p>Password</p>
+          <input
+            className='w-2/3 max-w-xl rounded-lg bg-white px-3 py-1 text-primary'
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                password: e.target.value,
+              })
+            }
+            required
+            title='password'
+            type='password'
+            value={formData.password}
           />
         </div>
         <button

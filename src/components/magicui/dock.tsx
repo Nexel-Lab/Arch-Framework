@@ -1,10 +1,9 @@
 'use client'
 
-import React, { PropsWithChildren, useRef } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-
-import { cn } from '@/libs/styles'
+import React, { type PropsWithChildren, useRef } from 'react'
+import { cn } from '#core/utils/styles'
 
 export interface DockProps extends VariantProps<typeof dockVariants> {
   className?: string
@@ -47,9 +46,9 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
 
     return (
       <motion.div
-        ref={ref}
-        onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
+        onMouseMove={(e) => mouseX.set(e.pageX)}
+        ref={ref}
         {...props}
         className={cn(dockVariants({ className }), {
           'items-start': direction === 'top',
@@ -92,13 +91,13 @@ const DockIcon = ({
     return val - bounds.x - bounds.width / 2
   })
 
-  let widthSync = useTransform(
+  const widthSync = useTransform(
     distanceCalc,
     [-distance, 0, distance],
     [40, magnification, 40],
   )
 
-  let width = useSpring(widthSync, {
+  const width = useSpring(widthSync, {
     mass: 0.1,
     stiffness: 150,
     damping: 12,
@@ -106,12 +105,12 @@ const DockIcon = ({
 
   return (
     <motion.div
-      ref={ref}
-      style={{ width }}
       className={cn(
         'flex aspect-square cursor-pointer items-center justify-center rounded-full',
         className,
       )}
+      ref={ref}
+      style={{ width }}
       {...props}
     >
       {children}

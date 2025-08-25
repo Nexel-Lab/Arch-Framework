@@ -1,9 +1,9 @@
 'use client'
 
-import type { Session } from 'next-auth'
-import { useState, useEffect } from 'react'
-import { toast } from 'react-toastify'
 import { trpc } from '@trpc'
+import type { Session } from 'next-auth'
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 function Client(p: { session: Session | null }) {
   const clientQuery = trpc.debugger.testQuery.useQuery({ text: 'ARCH' })
